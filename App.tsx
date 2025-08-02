@@ -1,20 +1,28 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from "react";
+import { Text, View } from "react-native";
+import './src/CSS/global.css'
+import NameInsert from "./src/Screens/NameInsert";
+import WelcomeUser from "./src/Screens/WelcomeUser";
+import NotePad from "./src/Screens/NotePad";
+import { ToastComponent } from "./src/Component/Common/ToastComponent";
 
-export default function App() {
+
+
+
+
+
+const App = () => {
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+
+    <>
+      <View className="flex-1">
+        <NotePad />
+      </View>
+
+      <ToastComponent />
+    </>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App

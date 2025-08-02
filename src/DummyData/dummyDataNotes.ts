@@ -1,0 +1,12 @@
+export const dummyNotes = [
+    {
+        notesId: 'note-001',
+        noteContent: `Today I started exploring React Native and began by understanding the core components like View, Text, and TextInput. It’s interesting to see how React concepts apply in a mobile development environment. I also learned how to use useState to manage component state. What excited me most was how easily I could create layouts using Flexbox, and I’m beginning to see how mobile UI building differs from web development. I installed NativeWind to help with styling and found that utility classes can make layout building faster. I want to keep exploring more complex topics like navigation, state management, and API integration. I plan to build a small to-do app to practice AsyncStorage, which will help me understand persistent local storage. I also came across Expo, which makes development and testing much easier on both Android and iOS devices. Today’s learning journey has been very productive, and I look forward to continuing this momentum tomorrow. My goal is to become comfortable enough to build a full-featured mobile app within a few weeks. This note helps me track what I’ve done so far and where I plan to go.`,
+        noteRecordDate: new Date().toISOString(),
+    },
+    {
+        notesId: 'note-002',
+        noteContent: `I spent the day focusing on understanding AsyncStorage in React Native. At first, it was a bit confusing how to save and retrieve values, especially since everything is stored as strings. However, once I started wrapping values in JSON.stringify and parsing with JSON.parse, things became clearer. I created a simple notepad app where I can type notes and save them locally using AsyncStorage. I also worked on displaying saved notes and deleting them. Handling arrays of notes taught me more about managing state in React. I used useEffect to load notes when the app starts, and I found that persisting state makes the app feel much more useful. I’m starting to understand how local storage can mimic small database behavior on mobile. I also explored UUID for generating unique note IDs and formatted timestamps using JavaScript's Date object. Tomorrow, I plan to enhance the UI with buttons and maybe some colors. Eventually, I want to integrate a rich text editor or markdown for note formatting. For now, saving plain text notes with proper structure and displaying them with their dates feels like a big win. I’m happy with today’s progress.`,
+        noteRecordDate: new Date().toISOString(),
+    },
+];
