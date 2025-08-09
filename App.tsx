@@ -5,6 +5,7 @@ import NameInsert from "./src/Screens/NameInsert";
 import WelcomeUser from "./src/Screens/WelcomeUser";
 import NotePad from "./src/Screens/NotePad";
 import { ToastComponent } from "./src/Component/Common/ToastComponent";
+import AddDataForm from "./src/Screens/AddDataForm";
 
 
 
@@ -17,7 +18,9 @@ const App = () => {
 
     <>
       <View className="flex-1">
-        <NotePad />
+        {/* <NotePad /> */}
+        {/* <NameInsert /> */}
+        <AddDataForm />
       </View>
 
       <ToastComponent />

@@ -7,7 +7,7 @@ import { TextInput, TextInputProps } from 'react-native'
 // This interface extends TextInputProps to include custom properties for the InputBox component
 interface InputTextBoxInterface extends TextInputProps {
     placeholder: string
-    value: string
+    value: any
     editable?: boolean
     pointerEvents?: 'auto' | 'none'
     onChangeText?: (text: string) => void;

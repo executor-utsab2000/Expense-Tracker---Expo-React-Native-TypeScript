@@ -1,6 +1,6 @@
 import { categoryArray } from "./categoryArray";
 
-export  interface StoredDataInterface { //declaring the structure of the object comes as todo param
+export interface StoredDataInterface { //declaring the structure of the object comes as todo param
     title: string,
     amount: string,
     category: string,
