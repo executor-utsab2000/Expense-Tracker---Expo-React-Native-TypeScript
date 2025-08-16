@@ -109,6 +109,7 @@ const AddDataForm = () => {
             const currentTime = now.toLocaleTimeString();
 
             const newTodo = {
+                id: Date.now().toString(),
                 title: userExpenseName.trim(),
                 amount: userExpenseAmount.trim(),
                 category: userCategory,
@@ -215,7 +216,7 @@ const AddDataForm = () => {
                     </View>
                 </View>
 
-                <View className="pt-5 flex justify-center items-center h-[30%] ">
+                <View className="pt-5 flex justify-center items-center h-[30%]">
                     <Image source={require("../../assets/img1.png")}
                         style={{
                             width: width * 0.5, // 80% of screen width
@@ -243,7 +244,7 @@ const AddDataForm = () => {
                                 <InputBox
                                     placeholder="Enter  Amount Spent"
                                     value={userExpenseAmount}
-                                    onChangeText={setRemainingAmount}
+                                    onChangeText={setUserExpenseAmount}
                                     keyboardType="numeric"
                                 />
                             </View>

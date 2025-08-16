@@ -9,42 +9,42 @@ export const categoryArray: Category[] = [
   {
     categoryLabel: "Food",
     categoryDescription: "Groceries, restaurants, snacks",
-    categoryColor: '#023e8a',
+    categoryColor: '#38b000',
   },
   {
     categoryLabel: "Transport",
     categoryDescription: "Bus, train, fuel, Uber",
-    categoryColor: '#0077b6',
+    categoryColor: '#ffea00',
   },
   {
     categoryLabel: "Rent",
     categoryDescription: "Monthly room/house rent",
-    categoryColor: '#0096c7',
+    categoryColor: '#00438f',
   },
   {
     categoryLabel: "Bills",
     categoryDescription: "Electricity, water, phone, internet",
-    categoryColor: '#00b4d8',
+    categoryColor: '#0aff99',
   },
   {
     categoryLabel: "Entertainment",
     categoryDescription: "Movies, games, Netflix",
-    categoryColor: '#48cae4',
+    categoryColor: '#1b263b',
   },
   {
     categoryLabel: "Shopping",
     categoryDescription: "Clothes, gadgets, online shopping",
-    categoryColor: '#3a86ff',
+    categoryColor: '#ffb3c1',
   },
   {
     categoryLabel: "Health",
     categoryDescription: "Medicine, doctor visits, gym",
-    categoryColor: '#457b9d',
+    categoryColor: '#f77f00',
   },
   {
     categoryLabel: "Education",
     categoryDescription: "Courses, books, tuition",
-    categoryColor: '#00296b',
+    categoryColor: '#a68a64',
   },
   {
     categoryLabel: "Others",

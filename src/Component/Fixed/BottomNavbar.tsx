@@ -22,9 +22,9 @@ const BottomNavbar = () => {
           {/* </Pressable> */}
 
 
-          {/* <Pressable className="py-2 px-3 bg-[#778da9] rounded-full" onPress={() => setShowModel(true)}> */}
-          <FontAwesome name="plus" size={30} color="black" />
-          {/* </Pressable> */}
+          <Pressable className="py-2 px-3 bg-[#778da9] rounded-full" onPress={() => setShowModel(true)}>
+            <FontAwesome name="plus" size={30} color="black" />
+          </Pressable>
 
 
           {/* <Pressable className="my-auto" onPress={() => navigation.navigate("allRecords")}> */}
