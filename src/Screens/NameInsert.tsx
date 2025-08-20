@@ -5,13 +5,13 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import InputBox from '../Component/Common/InputBox'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { toastHelperCallingFunc } from '../Component/Common/ToastComponent'
-
+import { useAppNavigation } from "../TS Logic/routesInterface";
 
 const NameInsert = () => {
     const { width, height } = Dimensions.get("window");
     const [userName, setUserName] = useState("");
     const [selectedGender, setSelectedGender] = useState<string | null>(null);
-
+    const navigation = useAppNavigation(); // ✅ no type boilerplate
 
     const setStorageDataFunction = async () => {
         if (userName.trim() == "") {
@@ -34,7 +34,7 @@ const NameInsert = () => {
 
         await AsyncStorage.setItem("userName", userName);
         await AsyncStorage.setItem("gender", selectedGender);
-        // navigation.navigate("home");
+        navigation.navigate("addDataForm");
     }
 
 
@@ -84,7 +84,7 @@ const NameInsert = () => {
                     </View>
                     <View className="flex flex-row justify-around mt-4 flex-wrap">
                         <Pressable className="py-4 bg-red-600 w-[100%] rounded-3xl" onPress={setStorageDataFunction}>
-                            <Text className="text-center color-yellow-300 font-bold text-2xl"> Save Data</Text>
+                            <Text className="text-center text-white font-bold text-2xl"> Save Data</Text>
                         </Pressable>
                     </View>
                 </View>

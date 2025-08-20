@@ -3,12 +3,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { View, Text, TextInput, Pressable } from "react-native";
 import TopNavbar from "../Component/Fixed/TopNavbar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useNavigation } from "@react-navigation/native";
+import { useAppNavigation } from "../TS Logic/routesInterface";
 
 const NameInsert = () => {
-    // const navigation = useNavigation();
-
     const [userName, setUserName] = useState<string | null>("");
+
+    const navigation = useAppNavigation(); // ✅ no type boilerplate
+
 
     useEffect(() => {
         async function getUserName() {
@@ -35,9 +36,9 @@ const NameInsert = () => {
             </View>
             <View className="h-[10%] w-[90%] px-5 m-auto">
                 <Pressable className="py-4 bg-red-600 w-[100%] rounded-3xl"
-                // onPress={() => navigation.navigate("home")}
+                    onPress={() => navigation.navigate("addDataForm")}
                 >
-                    <Text className="text-center color-yellow-300 font-bold text-xl">
+                    <Text className="text-center text-white font-bold text-xl">
                         Lets Record Your Expenses
                     </Text>
                 </Pressable>

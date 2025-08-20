@@ -15,50 +15,53 @@ export default async function getUserData() {
   const storedTodoList = storedTodoListRaw ? JSON.parse(storedTodoListRaw) : [];
   const storedAllTodoList = storedAllTodoListRaw ? JSON.parse(storedAllTodoListRaw) : [];
 
+  // let userName;
+  // let userGender;
+  let genderLogo: any;
+  let userProfilePic: any;
 
-  let allTodoLength = 0;
-  let totalRecordsThisMonth = 0;
+  let totalRecords: any = 0;
+  let totalSpentTillDate;
+  let allTodoAmountArray: number[] = []
 
-  let thisMonthTillDateSpent = 0;
-  let totalSpentLastMonth = 0;
+  let monthlyTotalRecords;
+  let monthlyTotalSpent
 
-  let mostSpentThisMonth = '';
-  let mostSpentLastMonth = '';
+  let highestSpentThisMonth;
+  let mostSpentThisMonth;
 
-  let highestSpentThisMonth = '';
-  let highestSpentLastMonth = '';
-  // ------------------------------------------------------------------------------------------------
-  // ------------------------------------------------------------------------------------------------
 
-  // stored todo this month
+  // ===============================================================================================
+  // ===============================================================================================
+
+  // monthly record 
   if (storedTodoList != null && storedTodoList.length != 0) {
-    totalRecordsThisMonth = storedTodoList.length;
-    allTodoLength = storedTodoList.length;
-    thisMonthTillDateSpent = storedTodoList.reduce((result: number, currVal: StoredDataInterface) => result + Number(currVal.amount), 0);
-    mostSpentThisMonth = mostSpentCalc(storedTodoList);
-    highestSpentThisMonth = highestSpentCalc(storedTodoList);
+    monthlyTotalRecords = storedTodoList.length
+    monthlyTotalSpent = storedTodoList.reduce((result: number, currentValue: any) => result + Number(currentValue.amount), 0)
+    highestSpentThisMonth = highestSpentCalc(storedTodoList)
+    mostSpentThisMonth = mostSpentCalc(storedTodoList)
+    totalRecords += storedTodoList.length
   }
-  // console.log(allTodoLength); 
+  // ===============================================================================================
+  // ===============================================================================================
 
-  // ------------------------------------------------------------------------------------------------
-
+  // all time records 
   if (storedAllTodoList != null && storedAllTodoList.length != 0) {
-    // console.log(storedAllTodoList[0].todos.length); 
-    // console.log(storedAllTodoList.forEach((elm) => console.log(elm)));
+    storedAllTodoList.forEach((elm: any) => {
+      totalRecords += elm.todos.length
+    })
 
-    allTodoLength = storedAllTodoList.reduce((total: number, list: any) => total + list.todos.length, allTodoLength);
+    storedAllTodoList.forEach((elm: any) => {
+      elm.todos.forEach((todo: any) => allTodoAmountArray.push(Number(todo.amount)))
+    })
 
-    totalSpentLastMonth = storedAllTodoList[0].todos.reduce((result: number, currVal: StoredDataInterface) => result + Number(currVal.amount), 0);
-    mostSpentLastMonth = mostSpentCalc(storedAllTodoList[0].todos);
-    highestSpentLastMonth = highestSpentCalc(storedAllTodoList[0].todos);
+    totalSpentTillDate = allTodoAmountArray.reduce((result: number, currentValue: number) => result + currentValue, 0)
   }
-  // console.log(allTodoLength); 
-  // ------------------------------------------------------------------------------------------------
-  // ------------------------------------------------------------------------------------------------
 
-  let genderLogo;
-  let userProfilePic;
+  // ===============================================================================================
+  // ===============================================================================================
 
+  // gender select
   if (storedGender == "male") {
     genderLogo = require("../../assets/manlogo.png");
     userProfilePic = require("../../assets/malepic.png");
@@ -69,28 +72,37 @@ export default async function getUserData() {
     userProfilePic = require("../../assets/femalepic.png");
   }
 
-  // ------------------------------------------------------------------------------------------------
-  // ------------------------------------------------------------------------------------------------
-
-
-  // setting value
   const userDetails = {
     userName: storedName,
     userGender: storedGender,
     userProfilePic: userProfilePic,
     genderLogo: genderLogo,
 
-    totalRecords: allTodoLength,
-    totalRecordsThisMonth: totalRecordsThisMonth,
+    totalRecords: totalRecords,
+    totalSpentTillDate: totalSpentTillDate,
 
-    thisMonthTillDateSpent: thisMonthTillDateSpent,
-    totalSpentLastMonth: totalSpentLastMonth,
-
-    mostSpentThisMonth: mostSpentThisMonth,
-    mostSpentLastMonth: mostSpentLastMonth,
-
+    totalRecordsThisMonth: monthlyTotalRecords,
+    totalSpentThisMonth: monthlyTotalSpent,
     highestSpentThisMonth: highestSpentThisMonth,
-    highestSpentLastMonth: highestSpentLastMonth,
-  };
+    mostSpentThisMonth: mostSpentThisMonth,
+  }
+
   return userDetails;
+
+
+
 }
+
+
+//  userName: "",
+// userGender: "",
+// userProfilePic: "",
+// genderLogo: "",
+
+// totalRecords: 0,
+// totalSpentTillDate: 0,
+
+// totalRecordsThisMonth: 0,
+// totalSpentThisMonth: 0,
+// mostSpentThisMonth: 0,
+// highestSpentThisMonth: 0,

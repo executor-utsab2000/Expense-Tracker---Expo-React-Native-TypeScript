@@ -1,5 +1,6 @@
 import { Pressable, Text, View } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
+import TabsContainer from "../Common/TabsContainer";
 
 interface ItemTabsProps {
     slNo: number | string,
@@ -23,8 +24,8 @@ const ItemTabs = ({
 
     return (
         <>
-            <View className="w-full px-2 py-5 my-4 rounded-2xl bg-[#f8f9fa]" style={{ elevation: 5 }}>
-
+            <TabsContainer>
+               
                 <View>
                     <View className="flex flex-row justify-between px-2 ">
                         <View className="w-9/12 flex flex-row my-auto">
@@ -57,7 +58,7 @@ const ItemTabs = ({
                     </View>
                 </View>
 
-            </View>
+                       </TabsContainer >
         </>
     );
 };

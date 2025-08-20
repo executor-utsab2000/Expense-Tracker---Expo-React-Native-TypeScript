@@ -7,7 +7,7 @@ import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { toastHelperCallingFunc } from '../Component/Common/ToastComponent';
 import ProjectLayout from '../Component/Layout/ProjectLayout'
 import InputBox from '../Component/Common/InputBox';
-import { dummyNotes } from '../DummyData/dummyDataNotes';
+// import { dummyNotes } from '../DummyData/dummyDataNotes';
 import ModelContainer from '../Component/Common/ModalContainer';
 
 
@@ -231,7 +231,7 @@ const NotePad = () => {
                         <Text className="text-center text-yellow-300  font-rld text-xl">Save Note</Text>
                     </Pressable>
                     <Pressable className="py-2 bg-red-600 w-[48%] rounded-3xl my-auto" onPress={() => setShowEditModal(false)}>
-                        <Text className="text-center text-yellow-300  font-rld text-xl">Close</Text>
+                        <Text className="text-center text-white  font-rld text-xl">Close</Text>
                     </Pressable>
                 </View>
             </ModelContainer >

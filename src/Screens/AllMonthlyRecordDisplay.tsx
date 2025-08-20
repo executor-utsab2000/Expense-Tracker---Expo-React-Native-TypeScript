@@ -38,13 +38,6 @@ const AllMonthlyRecordDisplay = () => {
 
 
 
-
-
-
-
-
-
-
     useEffect(() => {
         async function getAllData() {
             let storedAllTodoList = await AsyncStorage.getItem("allTodoList");

@@ -311,7 +311,7 @@ const AddDataForm = () => {
                         onChangeText={setBudget}
                     />
                     <Pressable className="mt-6 bg-red-600 py-3 rounded-3xl " onPress={saveBudget}>
-                        <Text className="text-center color-amber-300 font-bold text-lg">Set Budget</Text>
+                        <Text className="text-center text-white font-bold text-lg">Set Budget</Text>
                     </Pressable>
                 </View>
             </ModelContainer>

@@ -70,10 +70,10 @@ const Component_AllRecordsModel: React.FC<Component_AllRecordsModelProps> = ({
 
                 <View className="p-3 mt-5 flex flex-row justify-between">
                     <Pressable className="bg-red-600 py-3 rounded-3xl w-[45%]" onPress={deleteModelDataByIdFunction}>
-                        <Text className="text-center color-amber-300 font-bold text-lg">Delete</Text>
+                        <Text className="text-center text-white font-bold text-lg">Delete</Text>
                     </Pressable>
                     <Pressable className="bg-red-600 py-3 rounded-3xl w-[45%]" onPress={setShowModel}>
-                        <Text className="text-center color-amber-300 font-bold text-lg">Close</Text>
+                        <Text className="text-center text-white font-bold text-lg">Close</Text>
                     </Pressable>
                 </View>
             </View>

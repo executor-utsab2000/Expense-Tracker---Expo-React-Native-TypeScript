@@ -296,7 +296,7 @@ const ExpenseList = () => {
                         )}
                     </View>
                     <Pressable className="bg-red-600 py-3 rounded-3xl  mt-5" onPress={() => setShowCategoryModal(false)}>
-                        <Text className="text-center color-amber-300 font-bold text-lg">Close</Text>
+                        <Text className="text-center text-white font-bold text-lg">Close</Text>
                     </Pressable>
                 </View>
             </ModelContainer>
@@ -332,7 +332,7 @@ const ExpenseList = () => {
                         </View>
                     </View>
                     <Pressable className="bg-red-600 py-3 rounded-3xl mt-10" onPress={() => setShowChart(false)}>
-                        <Text className="text-center color-amber-300 font-bold text-lg">Close</Text>
+                        <Text className="text-center text-white font-bold text-lg">Close</Text>
                     </Pressable>
                 </View>
             </ModelContainer>
