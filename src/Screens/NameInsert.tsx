@@ -51,40 +51,37 @@ const NameInsert = () => {
     return (
         <SafeAreaView className="flex-1">
             <TopNavbar />
-            <View className='h-[92%] flex items-center justify-center'>
-                <View className="w-[90%] px-4">
-                    <Text className="text-lg font-bold mb-2">Enter Item Name : </Text>
+            <View className="flex-1 items-center justify-center bg-white">
+                <View className="w-[90%] max-w-md px-4">
+                    {/* Input */}
+                    <Text className="text-lg font-bold mb-2">Enter Item Name :</Text>
                     <InputBox
                         placeholder="Enter item name"
                         value={userName}
-                        onChangeText={setUserName} />
+                        onChangeText={setUserName}
+                    />
 
-                    <View className="flex justify-around flex-row py-8">
-                        <Pressable onPress={() => setSelectedGender("male")} className={`w-[45%] p-4 rounded-3xl flex flex-row border-2 ${selectedGender === "male" ? "border-blue-500 bg-blue-100" : "border-gray-300"}`}>
-                            <Image source={require("../../assets/manlogo.png")}
-                                style={{
-                                    width: width * 0.1,
-                                    height: height * 0.03,
-                                    resizeMode: "contain",
-                                    marginRight: 10,
-                                }} />
-                            <Text className="my-auto text-lg font-bold">Male</Text>
+                    {/* Gender Selection */}
+                    <View className="flex-row justify-between py-8 space-x-3">
+                        {/* Male */}
+                        <Pressable onPress={() => setSelectedGender("male")} className={`flex-1 p-4 rounded-3xl flex-row items-center border-2 me-2 ${selectedGender === "male" ? "border-blue-500 bg-blue-100" : "border-gray-300"}`}
+                        >
+                            <Image source={require("../../assets/manlogo.png")} className="w-8 h-8 mr-3" resizeMode="contain" />
+                            <Text className="text-lg font-bold">Male</Text>
                         </Pressable>
 
-                        <Pressable onPress={() => setSelectedGender("female")} className={`w-[45%] p-4 rounded-3xl flex flex-row border-2 ${selectedGender === "female" ? "border-blue-500 bg-blue-100" : "border-gray-300"}`}>
-                            <Image source={require("../../assets/femalelogo.png")}
-                                style={{
-                                    width: width * 0.1,
-                                    height: height * 0.03,
-                                    resizeMode: "contain",
-                                    marginRight: 10,
-                                }} />
-                            <Text className="my-auto text-lg font-bold">Female</Text>
+                        {/* Female */}
+                        <Pressable onPress={() => setSelectedGender("female")} className={`flex-1 p-4 rounded-3xl flex-row items-center border-2 ms-2 ${selectedGender === "female" ? "border-blue-500 bg-blue-100" : "border-gray-300"}`}
+                        >
+                            <Image source={require("../../assets/femalelogo.png")} className="w-8 h-8 mr-3" resizeMode="contain" />
+                            <Text className="text-lg font-bold">Female</Text>
                         </Pressable>
                     </View>
-                    <View className="flex flex-row justify-around mt-4 flex-wrap">
-                        <Pressable className="py-4 bg-red-600 w-[100%] rounded-3xl" onPress={setStorageDataFunction}>
-                            <Text className="text-center text-white font-bold text-2xl"> Save Data</Text>
+
+                    {/* Save Button */}
+                    <View className="mt-4">
+                        <Pressable className="py-4 bg-red-600 rounded-3xl" onPress={setStorageDataFunction}>
+                            <Text className="text-center text-white font-bold text-2xl">Save Data</Text>
                         </Pressable>
                     </View>
                 </View>
