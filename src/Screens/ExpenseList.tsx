@@ -9,6 +9,8 @@ import { PieChart } from "react-native-chart-kit";
 import createChartData, { ChartDataArray, StoredDataInterface } from "../TS Logic/chartData";
 import ModelContainer from "../Component/Common/ModalContainer";
 import InputBox from "../Component/Common/InputBox";
+import { RFPercentage } from "react-native-responsive-fontsize";
+import { Dimensions } from "react-native";
 
 const ExpenseList = () => {
 
@@ -30,7 +32,8 @@ const ExpenseList = () => {
     const [showCategoryModal, setShowCategoryModal] = useState<boolean>(false);
     const [openEditTodoModal, setOpenEditTodoModal] = useState<boolean>(false)
 
-
+    const { width } = Dimensions.get("window");
+    const chartSize = width * 0.4;
 
     const chartConfig = {
         backgroundGradientFrom: "#ffffff",
@@ -201,59 +204,68 @@ const ExpenseList = () => {
 
     }, []);
 
-    useEffect(() => {
-        console.log(categoryMode);
+    // useEffect(() => {
+    //     console.log(categoryMode);
 
-    }, [setCategoryMode, categoryMode])
+    // }, [setCategoryMode, categoryMode])
 
     return (
         <>
             <ProjectLayout>
-                <View className="pt-10 px-10 h-[15%] flex flex-row justify-between">
-                    <View>
-                        <Text className="text-sm font-extrabold color-red-600">
+                {/* Header Section */}
+                <View className="px-5 pt-10 py-5 flex-row justify-between items-center">
+                    <View className="flex-1">
+                        <Text className="text-sm font-extrabold text-red-600">
                             Total Monthly Budget : {budget}
                         </Text>
-                        <Text className="text-sm font-extrabold color-red-600">
+                        <Text className="text-sm font-extrabold text-red-600">
                             Remaining Monthly Budget : {remainingAmount}
                         </Text>
-                        <Text className="font-extrabold text-3xl italic pt-6 my-auto">
+                        <Text className="font-extrabold text-2xl md:text-3xl italic pt-4">
                             𝒀𝒐𝒖𝒓 𝑬𝒙𝒑𝒆𝒏𝒔𝒆𝒔 :
                         </Text>
                     </View>
 
-                    <View className="py-8 bg-[#ffba08] w-[20%] flex justify-center flex-row rounded-2xl border-red-700 border-4 h-24">
-                        <Text className="font-extrabold">{sum}</Text>
+                    <View className="p-4 bg-[#ffba08] min-w-[80px] max-w-[120px] flex justify-center items-center rounded-2xl border-red-700 border-4">
+                        <Text className="font-extrabold text-lg">{sum}</Text>
                     </View>
                 </View>
 
-                {
-                    todoList.length > 0 ? (
-                        <View className="h-[10%] px-10 py-8 flex  flex-row">
-                            <View className="w-[70%] px-4">
-                                <Text className="text-sm font-bold mb-2">Filter by Category:</Text>
-                                <Pressable onPress={() => {
-                                    setShowCategoryModal(true);
-                                    setCategoryMode('filter')
-                                }}>
-                                    <InputBox
-                                        placeholder="Select Category"
-                                        value={category}
-                                        editable={false} // Disable typing
-                                        pointerEvents="none" // Disable keyboard
-                                    />
-                                </Pressable>
-                            </View>
 
-                            <View className="w-[30%] px-3">
-                                <Pressable className="rounded-3xl my-auto h-10" onPress={chartRenderFunc}>
-                                    <FontAwesome name="bar-chart" size={25} color="red" className="m-auto" />
-                                    <Text className="text-sm font-extrabold mx-auto">View Charts</Text>
+
+                <View className="px-5 py-4 flex-row bg-yellow-300">
+                    <View className="flex-1 pr-2">
+                        <Text className="text-sm font-bold mb-2">Filter by Category:</Text>
+                        <Pressable
+                            onPress={() => {
+                                setShowCategoryModal(true);
+                                setCategoryMode("filter");
+                            }}>
+                            <InputBox
+                                placeholder="Select Category"
+                                value={category}
+                                editable={false}
+                                pointerEvents="none"
+                            />
+                        </Pressable>
+                    </View>
+
+                    {
+                        todoList.length > 0 ? (
+                            <View className="w-[35%] max-w-[150px]">
+                                <Pressable
+                                    className="rounded-3xl p-2 flex justify-center items-center"
+                                    onPress={chartRenderFunc}
+                                >
+                                    <FontAwesome name="bar-chart" size={22} color="red" />
+                                    <Text className="text-xs font-extrabold text-center mt-1">
+                                        View Charts
+                                    </Text>
                                 </Pressable>
                             </View>
-                        </View>
-                    ) : null
-                }
+                        ) : null
+                    }
+                </View>
 
                 <ScrollView className="px-10 h-[65%] mt-10">
                     {todoList.length === 0 ? (
@@ -289,52 +301,49 @@ const ExpenseList = () => {
                         {categoryArray.map(
                             ({ categoryLabel, categoryDescription }, index) => (
                                 <Pressable className="py-3 border-b-2 border-blue-500 flex flex-row justify-center" key={index} onPress={() => setCategoryDeciderFunc(categoryLabel)}>
-                                    <Text className="text-center font-bold">{categoryLabel} -</Text>
-                                    <Text className="color-slate-500 px-2">{categoryDescription}</Text>
+                                    <Text className="text-center font-bold" style={{ fontSize: Math.max(Math.min(RFPercentage(1.2), 20), 10) }}>{categoryLabel} -</Text>
+                                    <Text className="color-slate-500 px-2" style={{ fontSize: Math.max(Math.min(RFPercentage(1.2), 20), 10) }}>{categoryDescription}</Text>
                                 </Pressable>
                             )
                         )}
                     </View>
-                    <Pressable className="bg-red-600 py-3 rounded-3xl  mt-5" onPress={() => setShowCategoryModal(false)}>
-                        <Text className="text-center text-white font-bold text-lg">Close</Text>
+                    <Pressable className="bg-red-600 py-3 rounded-3xl  my-5" onPress={() => setShowCategoryModal(false)}>
+                        <Text className="text-center text-white font-bold text-md">Close</Text>
                     </Pressable>
                 </View>
             </ModelContainer>
 
 
-            <ModelContainer isVisible={showChart} title="Split of Expenes (in % out of 100)">
-                <View className="p-5  bg-slate-50 mx-auto rounded-3xl">
-                    <View className="flex-row justify-center items-center">
+            <ModelContainer isVisible={showChart} title="Split of Expenses (in % out of 100)">
+                <View className="bg-slate-50 mx-auto flex flex-1 flex-row">
+                    <View className="flex flex-row  justify-center items-center mx-auto" style={{ backgroundColor: 'yellow', flex: 3 }}>
                         <PieChart
                             data={chartDataArray}
-                            width={200}
-                            height={200}
+                            width={chartSize}
+                            height={chartSize}
                             chartConfig={chartConfig}
                             accessor={"percentage"}
                             backgroundColor={"transparent"}
-                            paddingLeft={"50"}
+                            paddingLeft={String(width * 0.1)}
                             center={[0, 0]}
                             absolute
                             hasLegend={false}
                             style={{ marginBottom: 16, elevation: 5 }}
                         />
-
-                        <View className="ml-5">
-                            {chartDataArray.map((item, index) => (
-                                <View key={index} className="flex-row items-center mb-2">
-                                    <View
-                                        className="w-3 h-3 rounded-full mr-2"
-                                        style={{ backgroundColor: item.color }}
-                                    />
-                                    <Text className="text-sm font-bold">{item.percentage}%  - {item.name}</Text>
-                                </View>
-                            ))}
-                        </View>
                     </View>
-                    <Pressable className="bg-red-600 py-3 rounded-3xl mt-10" onPress={() => setShowChart(false)}>
-                        <Text className="text-center text-white font-bold text-lg">Close</Text>
-                    </Pressable>
+                    <View className="" style={{ flex: 2 }}>
+                        {chartDataArray.map((item, index) => (
+                            <View key={index} className="flex flex-row items-center mb-2">
+                                <View className="w-3 h-3 rounded-full mr-2" style={{ backgroundColor: item.color }} />
+                                <Text style={{ fontSize: Math.max(Math.min(RFPercentage(1.2), 20), 10) }} className="font-bold">{item.percentage}% - {item.name}</Text>
+                            </View>
+                        ))}
+                    </View>
                 </View>
+                <Pressable className="bg-red-600 py-3 rounded-3xl mt-8" onPress={() => setShowChart(false)}>
+                    <Text className="text-center text-white font-bold text-md">Close</Text>
+                </Pressable>
+
             </ModelContainer>
 
 
@@ -380,7 +389,7 @@ const ExpenseList = () => {
                         <Text className="text-center font-semibold text-white" onPress={updateSaveTodo}>Edit</Text>
                     </Pressable>
                     <Pressable className="w-[48%] px-3 py-3 bg-red-500 rounded-2xl">
-                        <Text className="text-center font-semibold text-yellow-400"
+                        <Text className="text-center font-semibold text-white"
                             onPress={() => {
                                 setOpenEditTodoModal(false);
                                 setErrorMsg('')

@@ -25,40 +25,47 @@ const ItemTabs = ({
     return (
         <>
             <TabsContainer>
-               
+
                 <View>
-                    <View className="flex flex-row justify-between px-2 ">
-                        <View className="w-9/12 flex flex-row my-auto">
-                            <Text className="text-lg font-bold pe-3">{slNo}.</Text>
-                            <Text className="text-lg font-bold">{expenseTitle}</Text>
+                    {/* Top Row: Title + Actions */}
+                    <View className="flex-row justify-between px-2">
+                        {/* Title + SL No */}
+                        <View className="flex-1 flex-row items-center">
+                            <Text className="text-lg font-bold pr-2">{slNo}.</Text>
+                            <Text className="text-lg font-bold flex-shrink">{expenseTitle}</Text>
                         </View>
 
-                        <View className="w-3/12 flex flex-row justify-around">
-                            <Pressable className="p-3 bg-[#fca311] m-2 rounded-full" onPress={expenseEditFunction} style={{ elevation: 5 }}><FontAwesome5 name="edit" size={15} color="black" /></Pressable>
-                            <Pressable className="p-3 bg-[#e63946] m-2 rounded-full" onPress={expenseDeleteFunction} style={{ elevation: 5 }}><FontAwesome5 name="trash" size={15} color="black" /></Pressable>
+                        {/* Action Buttons */}
+                        <View className="flex-row items-center">
+                            <Pressable className="p-3 bg-[#fca311] mx-1 rounded-full" onPress={expenseEditFunction} style={{ elevation: 5 }}>
+                                <FontAwesome5 name="edit" size={15} color="white" />
+                            </Pressable>
+
+                            <Pressable className="p-3 bg-[#e63946] mx-1 rounded-full" onPress={expenseDeleteFunction} style={{ elevation: 5 }}>
+                                <FontAwesome5 name="trash" size={15} color="white" />
+                            </Pressable>
                         </View>
                     </View>
                 </View>
 
-                <View className="mt-3 flex flex-row">
-                    <View className="w-9/12 ps-2">
-                        <Text className="text-md color-slate-400 font-semibold pe-3">{expenseCategory}</Text>
-                        <Text className="text-md color-slate-400 font-semibold mt-2">
-                            {expenseDateTime[0]}
-                            <View className="px-2">
-                                <FontAwesome5 name="circle" solid size={8} color="#94a3b8" />
-                            </View>
-                            {expenseDateTime[1]}
-                        </Text>
+                <View className="mt-3 flex-row">
+                    {/* Left side */}
+                    <View className="flex-1 pl-2">
+                        <Text className="text-sm text-slate-500 font-semibold">{expenseCategory}</Text>
+                        <View className="flex-row items-center mt-2 flex-wrap">
+                            <Text className="text-sm text-slate-500 font-semibold">{expenseDateTime[0]}</Text>
+                            <FontAwesome5 name="circle" solid size={6} color="#94a3b8" className="mx-1" />
+                            <Text className="text-sm text-slate-500 font-semibold">{expenseDateTime[1]}</Text>
+                        </View>
                     </View>
-                    <View className="w-3/12">
-                        <Text className="text-center text-xl font-extrabold color-[#38b000]">
-                            ₹ {Number(expenseAmount).toFixed(2)}
-                        </Text>
+
+                    {/* Right side */}
+                    <View className="justify-center items-end min-w-[70px]">
+                        <Text className="text-lg font-extrabold text-[#38b000]">₹ {Number(expenseAmount).toFixed(2)}</Text>
                     </View>
                 </View>
 
-                       </TabsContainer >
+            </TabsContainer >
         </>
     );
 };

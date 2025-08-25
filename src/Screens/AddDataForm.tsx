@@ -12,6 +12,7 @@ import { getRemainingAmount } from "../TS Logic/getRemainingAmountData"
 import InputBox from "../Component/Common/InputBox";
 import { toastHelperCallingFunc } from "../Component/Common/ToastComponent";
 import ModelContainer from "../Component/Common/ModalContainer";
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 const AddDataForm = () => {
     const [userExpenseName, setUserExpenseName] = useState<string>("");
@@ -202,31 +203,45 @@ const AddDataForm = () => {
             <ProjectLayout>
 
 
-                <View className="pt-10 h-[15%]  mx-auto w-[85%] flex flex-row justify-between pb-10">
+                {/* Header Section */}
+                <View className="pt-10 flex flex-row justify-between pb-10 w-[85%] mx-auto flex-[1]">
                     <View className="my-auto">
                         <Text className="text-xl">𝑯𝒊 ,</Text>
                         <Text className="font-extrabold text-3xl italic pt-2">{storeUserName}</Text>
                     </View>
                     <View className="my-auto">
-                        <Text className="text-sm font-extrabold color-red-600">Total Monthly Budget : {budget}</Text>
-                        <Text className="text-sm font-extrabold color-red-600">Remaining Monthly Budget : {remainingAmount}</Text>
-                        <Pressable className="py-2 mt-4 border-2 border-slate-500 rounded-3xl" onPress={() => { setShowBudgetModal(true) }}>
+                        <Text className="text-sm font-extrabold color-red-600">
+                            Total Monthly Budget : {budget}
+                        </Text>
+                        <Text className="text-sm font-extrabold color-red-600">
+                            Remaining Monthly Budget : {remainingAmount}
+                        </Text>
+                        <Pressable
+                            className="py-2 mt-4 border-2 border-slate-500 rounded-3xl"
+                            onPress={() => {
+                                setShowBudgetModal(true);
+                            }}
+                        >
                             <Text className="text-center">Edit Budget</Text>
                         </Pressable>
                     </View>
                 </View>
 
-                <View className="pt-5 flex justify-center items-center h-[30%]">
-                    <Image source={require("../../assets/img1.png")}
+                {/* Image Section */}
+                <View className="flex justify-center items-center flex-[2]">
+                    <Image
+                        source={require("../../assets/img1.png")}
                         style={{
-                            width: width * 0.5, // 80% of screen width
+                            width: width * 0.5, // responsive image
                             resizeMode: "contain",
-                        }} />
+                        }}
+                    />
                 </View>
 
-
-                <View className="w-full h-[50%] flex justify-center items-center ">
+                {/* Form Section */}
+                <View className="w-full flex justify-center items-center flex-[5]">
                     <View className="mx-auto bg-[#6c757d] w-[85%] px-5 py-10 rounded-3xl">
+                        {/* Expense Name */}
                         <View>
                             <Text className="text-md font-bold mb-2">Enter Item Name : </Text>
                             <InputBox
@@ -236,44 +251,51 @@ const AddDataForm = () => {
                             />
                         </View>
 
-
+                        {/* Amount + Category */}
                         <View className="flex flex-row mt-8 justify-between">
-
-                            <View className="w-[48%]">
+                            <View className="flex-1 mr-2">
                                 <Text className="text-md font-bold mb-2">Enter Amount Spent : </Text>
                                 <InputBox
-                                    placeholder="Enter  Amount Spent"
+                                    placeholder="Enter Amount Spent"
                                     value={userExpenseAmount}
                                     onChangeText={setUserExpenseAmount}
                                     keyboardType="numeric"
                                 />
                             </View>
 
-                            <View className="w-[48%]">
+                            <View className="flex-1 ml-2">
                                 <Text className="text-md font-bold mb-2">Enter Category:</Text>
-                                <Pressable onPress={() => { setShowCategoryModal(true) }}>
+                                <Pressable
+                                    onPress={() => {
+                                        setShowCategoryModal(true);
+                                    }}
+                                >
                                     <InputBox
                                         placeholder="Enter Category"
                                         value={userCategory}
-                                        editable={false} // Disable typing
-                                        pointerEvents="none" // Disable keyboard
+                                        editable={false}
+                                        pointerEvents="none"
                                     />
                                 </Pressable>
                             </View>
-
                         </View>
 
-
-                        <Pressable className="bg-[#a7c957] mt-10 py-4 rounded-2xl" style={{ elevation: 5 }}>
-                            <Text className="text-center font-bold text-lg" onPress={addTodo}>Add Expense</Text>
+                        {/* Add Expense Button */}
+                        <Pressable
+                            className="bg-[#a7c957] mt-10 py-4 rounded-2xl"
+                            style={{ elevation: 5 }}
+                        >
+                            <Text className="text-center font-bold text-lg" onPress={addTodo}>
+                                Add Expense
+                            </Text>
                         </Pressable>
-
                     </View>
                 </View>
 
             </ProjectLayout >
 
 
+            {/* <ModelContainer isVisible={true} title="Select your Category"> */}
             <ModelContainer isVisible={showCategoryModal} title="Select your Category">
                 <View className="p-5  w-[90%] bg-slate-50 mx-auto rounded-3xl">
                     <Text className="mb-6 pt-3 pb-5 font-bold text-xl">Select Category</Text>
@@ -289,8 +311,8 @@ const AddDataForm = () => {
                                         setShowCategoryModal(false);
                                     }}
                                 >
-                                    <Text className="text-center font-bold">{categoryLabel} -</Text>
-                                    <Text className="color-slate-500 px-2">{categoryDescription}</Text>
+                                    <Text className="text-center font-bold" style={{ fontSize: Math.max(Math.min(RFPercentage(1.2), 20), 10) }}>{categoryLabel} -</Text>
+                                    <Text className="color-slate-500 px-2" style={{ fontSize: Math.max(Math.min(RFPercentage(1.2), 20), 10) }}>{categoryDescription}</Text>
                                 </Pressable>
 
                             )

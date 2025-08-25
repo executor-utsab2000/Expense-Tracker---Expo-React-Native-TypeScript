@@ -22,14 +22,14 @@ export const categoryArray: Category[] = [
     categoryColor: '#00438f',
   },
   {
-    categoryLabel: "Bills",
-    categoryDescription: "Electricity, water, phone, internet",
-    categoryColor: '#0aff99',
-  },
-  {
     categoryLabel: "Entertainment",
     categoryDescription: "Movies, games, Netflix",
     categoryColor: '#1b263b',
+  },
+  {
+    categoryLabel: "Bills",
+    categoryDescription: "Electricity, water, phone, internet",
+    categoryColor: '#0aff99',
   },
   {
     categoryLabel: "Shopping",
