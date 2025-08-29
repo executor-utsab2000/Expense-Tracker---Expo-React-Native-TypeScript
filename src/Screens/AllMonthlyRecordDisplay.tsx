@@ -5,6 +5,7 @@ import ProjectLayout from "../Component/Layout/ProjectLayout";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { toastHelperCallingFunc } from "../Component/Common/ToastComponent";
 import Component_AllRecordsModel from "./Component_AllRecordsModel";
+import commonFontSizeStyles from "../CSS/commonStyleSheet";
 
 const AllMonthlyRecordDisplay = () => {
     const [allData, setAllData] = useState<any>(null);
@@ -74,7 +75,7 @@ const AllMonthlyRecordDisplay = () => {
                                     getModelData(elm.id);
                                 }}
                             >
-                                <Text className="text-base font-semibold">{elm.title}</Text>
+                                <Text className="text-base font-semibold" style={commonFontSizeStyles.commonTextContent}>{elm.title}</Text>
                                 <FontAwesome5 name="eye" size={20} color="#black" />
                             </Pressable>
                         ))

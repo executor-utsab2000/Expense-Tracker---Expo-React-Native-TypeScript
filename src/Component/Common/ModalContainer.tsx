@@ -27,7 +27,7 @@ const ModelContainer = ({ isVisible, children, title }: ModalComponentInterface)
                     />
                     <Text className="font-bold flex-1 my-auto" style={{ fontSize: Math.max(Math.min(RFPercentage(1.8), 18), 12) }} numberOfLines={2}>{title}</Text>
                 </View>
-                <ScrollView className="py-8">{children}</ScrollView>
+                <ScrollView className="py-6">{children}</ScrollView>
             </View>
         </Modal>
     );

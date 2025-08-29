@@ -9,6 +9,8 @@ import ProjectLayout from '../Component/Layout/ProjectLayout'
 import InputBox from '../Component/Common/InputBox';
 // import { dummyNotes } from '../DummyData/dummyDataNotes';
 import ModelContainer from '../Component/Common/ModalContainer';
+import commonFontSizeStyles from "../CSS/commonStyleSheet";
+
 
 
 interface userAllNotesInterface {
@@ -28,6 +30,8 @@ const notesFormatFunc = (noteType: 'text1' | 'text2', content: string) => {
     }
 
     else {
+        console.log('else');
+
         if (noteType == 'text1') {
             return content.split(" ").slice(0, 5).join(" ")
         }
@@ -185,9 +189,9 @@ const NotePad = () => {
                                             <Text className='font-semibold mt-2' style={{ fontSize: 10 }}>{notesFormatFunc('text2', elm.noteContent)}.........</Text>
                                         </View>
                                     </Pressable>
-                                    <View className="w-[15%]">
+                                    <View className="w-[15%] my-auto">
                                         <Pressable className=' mx-auto px-5 py-4 bg-red-600 rounded-full' style={{ elevation: 5 }} onPress={() => deleteNotes(elm.notesId)}>
-                                            <FontAwesome name="trash" size={10} color="yellow" />
+                                            <FontAwesome name="trash" size={12} color="yellow" />
                                         </Pressable>
                                     </View>
                                 </View>
@@ -198,16 +202,17 @@ const NotePad = () => {
 
 
                 <Pressable className='px-5 py-4 bg-red-600  absolute bottom-12 right-[5%] rounded-full' style={{ elevation: 5 }} onPress={() => addEditNotesModelFunc('')}>
-                    <FontAwesome name="plus" size={25} color="yellow" />
+                    <FontAwesome name="plus" size={20} color="yellow" />
                 </Pressable>
 
                 <Pressable className='px-5 py-4 bg-red-600  absolute bottom-12 left-[5%] rounded-full' style={{ elevation: 5 }} onPress={deleteAllNotes}>
-                    <FontAwesome name="trash" size={25} color="yellow" />
+                    <FontAwesome name="trash" size={20} color="yellow" />
                 </Pressable>
             </ProjectLayout >
 
             <ModelContainer isVisible={showEditModal} title='Edit Note'>
                 <InputBox
+                    inputBoxLabel=""
                     placeholder="Edit Notes"
                     multiline
                     scrollEnabled
@@ -226,12 +231,12 @@ const NotePad = () => {
                     onChangeText={setNoteText}
                 />
 
-                <View className="h-[20%] w-[90%] mx-auto  mt-5 flex-row justify-around">
+                <View className="w-[90%] mx-auto  mt-5 flex-row justify-around">
                     <Pressable className="py-2 bg-red-600 w-[48%] rounded-3xl my-auto" onPress={updateAddNotes}>
-                        <Text className="text-center text-yellow-300  font-rld text-xl">Save Note</Text>
+                        <Text className="text-center text-white" style={commonFontSizeStyles.commonButtonSize}>Save Note</Text>
                     </Pressable>
                     <Pressable className="py-2 bg-red-600 w-[48%] rounded-3xl my-auto" onPress={() => setShowEditModal(false)}>
-                        <Text className="text-center text-white  font-rld text-xl">Close</Text>
+                        <Text className="text-center text-white" style={commonFontSizeStyles.commonButtonSize}>Close</Text>
                     </Pressable>
                 </View>
             </ModelContainer >

@@ -1,6 +1,7 @@
 import { Pressable, Text, View } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import TabsContainer from "../Common/TabsContainer";
+import commonFontSizeStyles from "../../CSS/commonStyleSheet";
 
 interface ItemTabsProps {
     slNo: number | string,
@@ -31,8 +32,8 @@ const ItemTabs = ({
                     <View className="flex-row justify-between px-2">
                         {/* Title + SL No */}
                         <View className="flex-1 flex-row items-center">
-                            <Text className="text-lg font-bold pr-2">{slNo}.</Text>
-                            <Text className="text-lg font-bold flex-shrink">{expenseTitle}</Text>
+                            <Text className="font-bold pr-2" style={commonFontSizeStyles.commonHeaderFontSize}>{slNo}.</Text>
+                            <Text className="font-bold flex-shrink" style={commonFontSizeStyles.commonHeaderFontSize}>{expenseTitle}</Text>
                         </View>
 
                         {/* Action Buttons */}
@@ -51,17 +52,17 @@ const ItemTabs = ({
                 <View className="mt-3 flex-row">
                     {/* Left side */}
                     <View className="flex-1 pl-2">
-                        <Text className="text-sm text-slate-500 font-semibold">{expenseCategory}</Text>
+                        <Text className="text-slate-500 font-semibold" style={commonFontSizeStyles.commonTextContent}>{expenseCategory}</Text>
                         <View className="flex-row items-center mt-2 flex-wrap">
-                            <Text className="text-sm text-slate-500 font-semibold">{expenseDateTime[0]}</Text>
+                            <Text className="text-slate-500 font-semibold" style={commonFontSizeStyles.commonTextContent}>{expenseDateTime[0]}</Text>
                             <FontAwesome5 name="circle" solid size={6} color="#94a3b8" className="mx-1" />
-                            <Text className="text-sm text-slate-500 font-semibold">{expenseDateTime[1]}</Text>
+                            <Text className="text-slate-500 font-semibold" style={commonFontSizeStyles.commonTextContent}>{expenseDateTime[1]}</Text>
                         </View>
                     </View>
 
                     {/* Right side */}
                     <View className="justify-center items-end min-w-[70px]">
-                        <Text className="text-lg font-extrabold text-[#38b000]">₹ {Number(expenseAmount).toFixed(2)}</Text>
+                        <Text className="font-extrabold text-[#38b000]" style={commonFontSizeStyles.commonHeaderFontSize}>₹ {Number(expenseAmount).toFixed(2)}</Text>
                     </View>
                 </View>
 

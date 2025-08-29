@@ -7,7 +7,7 @@ import ExpenseList from "./src/Screens/ExpenseList";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { dummyDataTodoMonthly } from "./src/DummyData/dummyDataTodoMonthly";
 import AllMonthlyRecordDisplay from "./src/Screens/AllMonthlyRecordDisplay";
-// import { dummyMultipleMonthRecord } from "./src/DummyData/dummyMultipleMonthRecord";
+import { dummyMultipleMonthRecord } from "./src/DummyData/dummyMultipleMonthRecord";
 import { monthAllRecords } from "./src/TS Logic/monthAllRecords";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -29,8 +29,9 @@ const App = () => {
   useEffect(() => {
     async function conditionallySetRoute() {
       // await AsyncStorage.clear();
+      // await AsyncStorage.setItem("allTodoList", JSON.stringify(dummyMultipleMonthRecord));
       const userName = await AsyncStorage.getItem("userName");
-      console.log("AsyncStorage userName:", userName);
+      // console.log("AsyncStorage userName:", userName);
       if (userName == null) {
         setInitialRoute("nameInsert");
       } else {

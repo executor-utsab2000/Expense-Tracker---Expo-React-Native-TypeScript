@@ -11,6 +11,7 @@ import ModelContainer from "../Component/Common/ModalContainer";
 import InputBox from "../Component/Common/InputBox";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { Dimensions } from "react-native";
+import commonFontSizeStyles from "../CSS/commonStyleSheet";
 
 const ExpenseList = () => {
 
@@ -227,21 +228,21 @@ const ExpenseList = () => {
                     </View>
 
                     <View className="p-4 bg-[#ffba08] min-w-[80px] max-w-[120px] flex justify-center items-center rounded-2xl border-red-700 border-4">
-                        <Text className="font-extrabold text-lg">{sum}</Text>
+                        <Text className="font-extrabold" style={commonFontSizeStyles.commonHeaderFontSize}>{sum}</Text>
                     </View>
                 </View>
 
 
 
-                <View className="px-5 py-4 flex-row bg-yellow-300">
+                <View className="px-5 py-4 flex-row">
                     <View className="flex-1 pr-2">
-                        <Text className="text-sm font-bold mb-2">Filter by Category:</Text>
                         <Pressable
                             onPress={() => {
                                 setShowCategoryModal(true);
                                 setCategoryMode("filter");
                             }}>
                             <InputBox
+                                inputBoxLabel="Filter by Category:"
                                 placeholder="Select Category"
                                 value={category}
                                 editable={false}
@@ -258,7 +259,7 @@ const ExpenseList = () => {
                                     onPress={chartRenderFunc}
                                 >
                                     <FontAwesome name="bar-chart" size={22} color="red" />
-                                    <Text className="text-xs font-extrabold text-center mt-1">
+                                    <Text className="font-extrabold text-center mt-1" style={commonFontSizeStyles.commonButtonSize}>
                                         View Charts
                                     </Text>
                                 </Pressable>
@@ -293,7 +294,6 @@ const ExpenseList = () => {
 
             <ModelContainer isVisible={showCategoryModal} title="Select Category">
                 <View className="p-5 w-[90%] bg-slate-50 mx-auto rounded-3xl">
-                    <Text className="mb-6 pt-3 pb-5 font-bold text-xl">Select Category</Text>
                     <View>
                         {categoryMode != 'edit' && <Pressable className="py-3 border-b-2 border-blue-500 flex flex-row justify-center" key={78} onPress={() => setCategoryDeciderFunc('All')}>
                             <Text className="text-center font-bold">All </Text>
@@ -301,14 +301,14 @@ const ExpenseList = () => {
                         {categoryArray.map(
                             ({ categoryLabel, categoryDescription }, index) => (
                                 <Pressable className="py-3 border-b-2 border-blue-500 flex flex-row justify-center" key={index} onPress={() => setCategoryDeciderFunc(categoryLabel)}>
-                                    <Text className="text-center font-bold" style={{ fontSize: Math.max(Math.min(RFPercentage(1.2), 20), 10) }}>{categoryLabel} -</Text>
-                                    <Text className="color-slate-500 px-2" style={{ fontSize: Math.max(Math.min(RFPercentage(1.2), 20), 10) }}>{categoryDescription}</Text>
+                                    <Text className="text-center font-bold" style={commonFontSizeStyles.commonTextContent}>{categoryLabel} -</Text>
+                                    <Text className="color-slate-500 px-2" style={commonFontSizeStyles.commonTextContent}>{categoryDescription}</Text>
                                 </Pressable>
                             )
                         )}
                     </View>
                     <Pressable className="bg-red-600 py-3 rounded-3xl  my-5" onPress={() => setShowCategoryModal(false)}>
-                        <Text className="text-center text-white font-bold text-md">Close</Text>
+                        <Text className="text-center text-white font-bold" style={commonFontSizeStyles.commonButtonSize}>Close</Text>
                     </Pressable>
                 </View>
             </ModelContainer>
@@ -316,7 +316,7 @@ const ExpenseList = () => {
 
             <ModelContainer isVisible={showChart} title="Split of Expenses (in % out of 100)">
                 <View className="bg-slate-50 mx-auto flex flex-1 flex-row">
-                    <View className="flex flex-row  justify-center items-center mx-auto" style={{ backgroundColor: 'yellow', flex: 3 }}>
+                    <View className="flex flex-row  justify-center items-center mx-auto" style={{ flex: 3 }}>
                         <PieChart
                             data={chartDataArray}
                             width={chartSize}
@@ -335,13 +335,13 @@ const ExpenseList = () => {
                         {chartDataArray.map((item, index) => (
                             <View key={index} className="flex flex-row items-center mb-2">
                                 <View className="w-3 h-3 rounded-full mr-2" style={{ backgroundColor: item.color }} />
-                                <Text style={{ fontSize: Math.max(Math.min(RFPercentage(1.2), 20), 10) }} className="font-bold">{item.percentage}% - {item.name}</Text>
+                                <Text style={commonFontSizeStyles.commonTextContent} className="font-bold">{item.percentage}% - {item.name}</Text>
                             </View>
                         ))}
                     </View>
                 </View>
                 <Pressable className="bg-red-600 py-3 rounded-3xl mt-8" onPress={() => setShowChart(false)}>
-                    <Text className="text-center text-white font-bold text-md">Close</Text>
+                    <Text className="text-center text-white font-bold" style={commonFontSizeStyles.commonButtonSize}>Close</Text>
                 </Pressable>
 
             </ModelContainer>
@@ -350,32 +350,32 @@ const ExpenseList = () => {
 
 
             <ModelContainer isVisible={openEditTodoModal} title="Edit Todo">
-                <View>
-                    <Text className="text-md font-bold mb-2">Enter Item Name : </Text>
+                <View className="mb-5">
                     <InputBox
+                        inputBoxLabel="Enter Expense Name"
                         placeholder="Enter Expense Name"
                         value={userExpenseName}
                         onChangeText={setUserExpenseName}
                     />
                 </View>
 
-                <View>
-                    <Text className="text-md font-bold mb-2">Enter Amount Spent : </Text>
+                <View className="mb-5">
                     <InputBox
-                        placeholder="Enter  Amount Spent"
+                        inputBoxLabel="Enter Amount Spent"
+                        placeholder="Enter Amount Spent"
                         value={userExpenseAmount}
                         onChangeText={setUserExpenseAmount}
                         keyboardType="numeric"
                     />
                 </View>
-                <Text className="text-red-500 font-bold text-sm mt-1">{errorMsg}</Text>
+                <Text className="text-red-500 font-bold  mt-1 mb-3" style={{ fontSize: Math.max(Math.min(RFPercentage(1.2), 20), 10) }}>{errorMsg}</Text>
                 <View>
-                    <Text className="text-md font-bold mb-2">Enter Category:</Text>
                     <Pressable onPress={() => {
                         setShowCategoryModal(true);
                         setCategoryMode('edit')
                     }}>
                         <InputBox
+                            inputBoxLabel="Enter Category"
                             placeholder="Enter Category"
                             value={userCategory}
                             editable={false} // Disable typing
@@ -385,11 +385,11 @@ const ExpenseList = () => {
                 </View>
 
                 <View className="mt-5 flex flex-row justify-between">
-                    <Pressable className="w-[48%] px-3 py-3 bg-green-700 rounded-2xl">
-                        <Text className="text-center font-semibold text-white" onPress={updateSaveTodo}>Edit</Text>
+                    <Pressable className="flex-1 mx-1 px-3 py-3 bg-green-700 rounded-2xl">
+                        <Text className="text-center font-semibold text-white" onPress={updateSaveTodo} style={commonFontSizeStyles.commonButtonSize}>Edit</Text>
                     </Pressable>
-                    <Pressable className="w-[48%] px-3 py-3 bg-red-500 rounded-2xl">
-                        <Text className="text-center font-semibold text-white"
+                    <Pressable className="flex-1 mx-1 px-3 py-3 bg-red-500 rounded-2xl">
+                        <Text className="text-center font-semibold text-white" style={commonFontSizeStyles.commonButtonSize}
                             onPress={() => {
                                 setOpenEditTodoModal(false);
                                 setErrorMsg('')

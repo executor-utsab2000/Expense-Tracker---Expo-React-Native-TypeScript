@@ -5,6 +5,7 @@ import TopNavbar from "../Component/Fixed/TopNavbar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAppNavigation } from "../TS Logic/routesInterface";
 import { RFPercentage } from "react-native-responsive-fontsize";
+import commonFontSizeStyles from "../CSS/commonStyleSheet";
 
 const NameInsert = () => {
     const [userName, setUserName] = useState<string | null>("");
@@ -39,7 +40,7 @@ const NameInsert = () => {
                 <Pressable className="py-4 bg-red-600 w-[100%] rounded-3xl"
                     onPress={() => navigation.navigate("addDataForm")}
                 >
-                    <Text className="text-center text-white font-bold" style={{ fontSize: Math.max(Math.min(RFPercentage(2), 25), 18) }}>
+                    <Text className="text-center text-white font-bold" style={commonFontSizeStyles.commonButtonSize}>
                         Lets Record Your Expenses
                     </Text>
                 </Pressable>
