@@ -3,6 +3,7 @@ import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import TabsContainer from '../Common/TabsContainer'
 import { Pressable, Text, View } from 'react-native'
 import { RFPercentage } from 'react-native-responsive-fontsize';
+import commonFontSizeStyles from '../../CSS/commonStyleSheet';
 
 interface ProfileTabsProps {
     title: string,
@@ -19,8 +20,8 @@ const ProfileTabs = ({ title = '', count = '' }: ProfileTabsProps) => {
                             <FontAwesome5 name="chart-line" size={20} color="#3a86ff" />
                         </View>
                         <View className='px-3'>
-                            <Text className='font-extrabold' style={{ letterSpacing: 1, fontSize: Math.max(Math.min(RFPercentage(1.5), 20), 10) }}>{title}</Text>
-                            <Text className='font-extrabold text-red-600' style={{ letterSpacing: 1, fontSize: Math.max(Math.min(RFPercentage(1.3), 20), 10) }}>{count}</Text>
+                            <Text style={commonFontSizeStyles.commonHeaderFontSize}>{title}</Text>
+                            <Text className='font-extrabold text-red-600' style={commonFontSizeStyles.commonTextContent}>{count}</Text>
                         </View>
                     </View>
                 </View>

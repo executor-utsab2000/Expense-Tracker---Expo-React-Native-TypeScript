@@ -30,7 +30,7 @@ const ProfilePage = () => {
         const fetchData = async () => {
             const userData = await getUserData();
             setUserDetails(userData);
-            // console.log(userData);
+            console.log(userData);
         };
 
         fetchData(); // Call the async function inside useEffect

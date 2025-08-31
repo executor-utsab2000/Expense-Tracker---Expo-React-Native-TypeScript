@@ -6,6 +6,8 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { toastHelperCallingFunc } from "../Component/Common/ToastComponent";
 import Component_AllRecordsModel from "./Component_AllRecordsModel";
 import commonFontSizeStyles from "../CSS/commonStyleSheet";
+import TabsContainer from "../Component/Common/TabsContainer";
+import saveAsPdf from "../TS Logic/saveAsPdf";
 
 const AllMonthlyRecordDisplay = () => {
     const [allData, setAllData] = useState<any>(null);
@@ -14,13 +16,15 @@ const AllMonthlyRecordDisplay = () => {
 
 
     function getModelData(modelId: any) {
-        // console.log(modelId);
-
         const modelData = allData.find((elm: any) => elm.id == modelId);
-
         const total = modelData.todos.reduce((sum: number, elm: any) => sum + Number(elm.amount), 0);
         setModelData({ ...modelData, total });
         setShowModel(true);
+    }
+
+    function getDataById(modelId: any) {
+        const todoData = allData.find((elm: any) => elm.id == modelId);
+        saveAsPdf(todoData)
     }
 
 
@@ -65,23 +69,35 @@ const AllMonthlyRecordDisplay = () => {
     return (
         <>
             <ProjectLayout>
-                <ScrollView className="flex-1 px-5">
+                <ScrollView className="flex-1 px-5 my-8">
                     {allData && allData.length > 0 ? (
                         allData.map((elm: any, index: number) => (
-                            <Pressable
-                                key={index}
-                                className="w-[90%] px-4 py-3 border-b-2 border-blue-500 mx-auto my-2 flex flex-row justify-between"
-                                onPress={() => {
-                                    getModelData(elm.id);
-                                }}
-                            >
-                                <Text className="text-base font-semibold" style={commonFontSizeStyles.commonTextContent}>{elm.title}</Text>
-                                <FontAwesome5 name="eye" size={20} color="#black" />
+
+                            <Pressable key={index} onPress={() => { getModelData(elm.id) }}>
+                                <TabsContainer>
+                                    <View className="flex flex-row justify-between">
+                                        <View>
+                                            <Text className="mb-5" style={commonFontSizeStyles.commonHeaderFontSize}>{elm.title}</Text>
+                                            <Text className="font-extrabold" style={commonFontSizeStyles.commonTextContent}>Monthly Budget : <Text className="text-red-600 font-bold ">₹ 2000 /-</Text> </Text>
+                                            <Text className="font-extrabold" style={commonFontSizeStyles.commonTextContent}>Total Spent :  <Text className="text-red-600 font-bold ">₹ 2000 /-</Text> </Text>
+                                            <Text className="font-extrabold" style={commonFontSizeStyles.commonTextContent}>Remaining Amount :  <Text className="text-red-600 font-bold ">₹ 2000 /-</Text> </Text>
+                                        </View>
+                                        <View className="my-auto">
+                                            <Pressable>
+                                                <Text className="color-[#3a86ff] text-center" style={commonFontSizeStyles.commonButtonSize}>View Details</Text>
+                                            </Pressable>
+                                            <Pressable className="px-3 py-2 mt-2 bg-green-600 rounded-xl" style={{ elevation: 5 }} onPress={() => getDataById(elm.id)}>
+                                                <Text className="text-white" style={commonFontSizeStyles.commonButtonSize}>Save as PDF</Text>
+                                            </Pressable>
+                                        </View>
+                                    </View>
+                                </TabsContainer>
                             </Pressable>
+
                         ))
                     ) : (
                         <Text className="text-center text-gray-500 mt-10">
-                            Month Wise records will be added on 1st of every Month.
+                            Month wise records will be added on 1st of every Month.
                         </Text>
                     )}
                 </ScrollView>

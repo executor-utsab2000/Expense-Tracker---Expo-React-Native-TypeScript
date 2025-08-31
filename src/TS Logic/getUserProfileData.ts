@@ -78,13 +78,13 @@ export default async function getUserData() {
     userProfilePic: userProfilePic,
     genderLogo: genderLogo,
 
-    totalRecords: totalRecords,
-    totalSpentTillDate: totalSpentTillDate,
+    totalRecords: totalRecords || 0,
+    totalSpentTillDate: totalSpentTillDate || 0,
 
-    totalRecordsThisMonth: monthlyTotalRecords,
-    totalSpentThisMonth: monthlyTotalSpent,
-    highestSpentThisMonth: highestSpentThisMonth,
-    mostSpentThisMonth: mostSpentThisMonth,
+    totalRecordsThisMonth: monthlyTotalRecords || 0,
+    totalSpentThisMonth: monthlyTotalSpent || 0,
+    highestSpentThisMonth: highestSpentThisMonth || 0,
+    mostSpentThisMonth: mostSpentThisMonth || '-',
   }
 
   return userDetails;

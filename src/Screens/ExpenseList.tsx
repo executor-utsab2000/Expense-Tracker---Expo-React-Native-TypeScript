@@ -6,7 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { categoryArray } from "../TS Logic/categoryArray";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { PieChart } from "react-native-chart-kit";
-import createChartData, { ChartDataArray, StoredDataInterface } from "../TS Logic/chartData";
+import createChartData, { StoredDataInterface } from "../TS Logic/chartData";
 import ModelContainer from "../Component/Common/ModalContainer";
 import InputBox from "../Component/Common/InputBox";
 import { RFPercentage } from "react-native-responsive-fontsize";
@@ -28,7 +28,7 @@ const ExpenseList = () => {
     const [budget, setBudget] = useState(0);
     const [remainingAmount, setRemainingAmount] = useState(0);
     const [category, setCategory] = useState<string>('');
-    const [chartDataArray, setChartDataArray] = useState<ChartDataArray[]>([])
+    const [chartDataArray, setChartDataArray] = useState<any>([])
     const [showChart, setShowChart] = useState<boolean>(false)
     const [showCategoryModal, setShowCategoryModal] = useState<boolean>(false);
     const [openEditTodoModal, setOpenEditTodoModal] = useState<boolean>(false)
@@ -68,6 +68,7 @@ const ExpenseList = () => {
 
     const chartRenderFunc = () => {
         setChartDataArray(createChartData(todoList, Number(budget), Number(remainingAmount)))
+        console.log(chartDataArray);
         setShowChart(true)
     }
 
@@ -203,6 +204,8 @@ const ExpenseList = () => {
         }
         loadData();
 
+
+
     }, []);
 
     // useEffect(() => {
@@ -314,37 +317,39 @@ const ExpenseList = () => {
             </ModelContainer>
 
 
-            <ModelContainer isVisible={showChart} title="Split of Expenses (in % out of 100)">
-                <View className="bg-slate-50 mx-auto flex flex-1 flex-row">
-                    <View className="flex flex-row  justify-center items-center mx-auto" style={{ flex: 3 }}>
-                        <PieChart
-                            data={chartDataArray}
-                            width={chartSize}
-                            height={chartSize}
-                            chartConfig={chartConfig}
-                            accessor={"percentage"}
-                            backgroundColor={"transparent"}
-                            paddingLeft={String(width * 0.1)}
-                            center={[0, 0]}
-                            absolute
-                            hasLegend={false}
-                            style={{ marginBottom: 16, elevation: 5 }}
-                        />
-                    </View>
-                    <View className="" style={{ flex: 2 }}>
-                        {chartDataArray.map((item, index) => (
-                            <View key={index} className="flex flex-row items-center mb-2">
-                                <View className="w-3 h-3 rounded-full mr-2" style={{ backgroundColor: item.color }} />
-                                <Text style={commonFontSizeStyles.commonTextContent} className="font-bold">{item.percentage}% - {item.name}</Text>
-                            </View>
-                        ))}
-                    </View>
-                </View>
-                <Pressable className="bg-red-600 py-3 rounded-3xl mt-8" onPress={() => setShowChart(false)}>
-                    <Text className="text-center text-white font-bold" style={commonFontSizeStyles.commonButtonSize}>Close</Text>
-                </Pressable>
+            {showChart &&
+                <ModelContainer isVisible={showChart} title="Split of Expenses (in % out of 100)">
+                    <View className="bg-slate-50 mx-auto flex flex-1 flex-row">
+                        <View className="flex flex-row  justify-center items-center mx-auto" style={{ flex: 3 }}>
+                            <PieChart
+                                data={chartDataArray.chartCreateData}
+                                width={chartSize}
+                                height={chartSize}
+                                chartConfig={chartConfig}
+                                accessor={"percentage"}
+                                backgroundColor={"transparent"}
+                                paddingLeft={width ? String(width * 0.1) : "0"}
 
-            </ModelContainer>
+                                center={[0, 0]}
+                                // absolute
+                                hasLegend={false}
+                                style={{ marginBottom: 16 }}
+                            />
+                        </View>
+                        <View className="" style={{ flex: 2 }}>
+                            {chartDataArray?.chartListData.map((item: any, index: any) => (
+                                <View key={index} className="flex flex-row items-center mb-2">
+                                    <View className="w-3 h-3 rounded-full mr-2" style={{ backgroundColor: item.color }} />
+                                    <Text style={commonFontSizeStyles.commonTextContent} className="font-bold">{item.percentage}% - {item.name}</Text>
+                                </View>
+                            ))}
+                        </View>
+                    </View>
+                    <Pressable className="bg-red-600 py-3 rounded-3xl mt-8" onPress={() => setShowChart(false)}>
+                        <Text className="text-center text-white font-bold" style={commonFontSizeStyles.commonButtonSize}>Close</Text>
+                    </Pressable>
+
+                </ModelContainer>}
 
 
 

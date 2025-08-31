@@ -9,25 +9,14 @@ export interface StoredDataInterface { //declaring the structure of the object c
     currentTime: string,
 }
 
-
-export interface ChartDataArray { //declaring the structure of the object made by the function
-    name: string,
-    amountSpent: string,
-    percentage: number,
-    color: string,
-    legendFontColor: string,
-    legendFontSize: number,
-
-}
-
-function getPercentage(total_budget: number, amountSpent: number): number {
+export function getPercentage(total_budget: number, amountSpent: number): number {
     let percentage_spent = (amountSpent / total_budget) * 100
     return parseFloat(percentage_spent.toFixed(2));
 
 }
 
 
-export default function createChartData(todo: StoredDataInterface[], budget: number, remainingAmount: number): ChartDataArray[] {
+export default function createChartData(todo: StoredDataInterface[], budget: number, remainingAmount: number): any {
 
     let chartDataArray: any = []
 
@@ -39,7 +28,7 @@ export default function createChartData(todo: StoredDataInterface[], budget: num
         const newObj = {
             name: category.categoryLabel,
             amountSpent: `₹ ${categoryTotalExpense} /-`,
-            percentage: getPercentage(Number(budget), Number(categoryTotalExpense)),
+            percentage: getPercentage(Number(budget), Number(categoryTotalExpense)) || 0,
             color: category?.categoryColor,
             legendFontColor: 'black',
             legendFontSize: 15
@@ -52,16 +41,23 @@ export default function createChartData(todo: StoredDataInterface[], budget: num
     const remainingAmountObj = {
         name: 'Remaining',
         amountSpent: `₹ ${remainingAmount} /-`,
-        percentage: getPercentage(Number(budget), Number(remainingAmount)),
+        percentage: getPercentage(Number(budget), Number(remainingAmount)) || 0,
         color: '#d00000',
         legendFontColor: 'black',
         legendFontSize: 15
     }
     chartDataArray.push(remainingAmountObj)
 
-    // console.log(chartDataArray);
 
-    return chartDataArray
+    const onlyValidAmounts = chartDataArray.filter((elm: any) => elm.percentage != 0)
+
+
+
+    return {
+        chartListData: chartDataArray,
+        chartCreateData: onlyValidAmounts
+
+    }
 
 }
 

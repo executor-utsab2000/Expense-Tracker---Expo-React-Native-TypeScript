@@ -18,6 +18,6 @@ export const getRemainingAmount = async () => {
         remaining = Number(budget);
     }
 
-    // console.log(remaining);
+    console.log(remaining);
     return remaining;
 }

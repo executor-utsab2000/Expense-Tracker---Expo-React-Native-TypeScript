@@ -16,7 +16,8 @@ const commonFontSizeStyles = StyleSheet.create({
         fontSize: Math.max(Math.min(RFPercentage(1.2), 20), 10)
     },
     commonHeaderFontSize: {
-        fontSize: Math.max(Math.min(RFPercentage(1.5), 20), 10)
+        fontSize: Math.max(Math.min(RFPercentage(1.5), 20), 10),
+        fontWeight: 800,
     },
 
     chartFont: {

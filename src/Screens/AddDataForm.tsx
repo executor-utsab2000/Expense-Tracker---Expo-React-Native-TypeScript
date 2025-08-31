@@ -19,7 +19,7 @@ const AddDataForm = () => {
     const [userExpenseAmount, setUserExpenseAmount] = useState<string>("");
     const [userCategory, setUserCategory] = useState<string>("");
 
-    const [budget, setBudget] = useState<string>('0');
+    const [budget, setBudget] = useState<string>('');
     const [storeUserName, setStoreUserName] = useState<string | null>("");
     const [showBudgetModal, setShowBudgetModal] = useState<boolean>(false);
     const [remainingAmount, setRemainingAmount] = useState<string | number>('0');
@@ -204,12 +204,12 @@ const AddDataForm = () => {
 
 
                 {/* Header Section */}
-                <View className="pt-10 flex flex-row justify-between pb-10 w-[85%] mx-auto flex-[1]">
+                <View className="pt-10 flex flex-row justify-between pb-10 w-[90%] mx-auto flex-[1]">
                     <View className="my-auto">
                         <Text className="text-xl">𝑯𝒊 ,</Text>
                         <Text className="font-extrabold text-3xl italic pt-2">{storeUserName}</Text>
                     </View>
-                    <View className="my-auto">
+                    <View className="my-auto pe-4">
                         <Text className="font-extrabold color-red-600" style={commonFontSizeStyles.commonTextContent}>Total Monthly Budget : {budget}</Text>
                         <Text className="font-extrabold color-red-600" style={commonFontSizeStyles.commonTextContent}>Remaining Monthly Budget : {remainingAmount}
                         </Text>

@@ -10,6 +10,7 @@ import InputBox from '../Component/Common/InputBox';
 // import { dummyNotes } from '../DummyData/dummyDataNotes';
 import ModelContainer from '../Component/Common/ModalContainer';
 import commonFontSizeStyles from "../CSS/commonStyleSheet";
+import TabsContainer from '../Component/Common/TabsContainer';
 
 
 
@@ -18,30 +19,6 @@ interface userAllNotesInterface {
     noteContent: string
     noteRecordDate: any
 }
-
-const notesFormatFunc = (noteType: 'text1' | 'text2', content: string) => {
-    if (content.trim() == '') {
-        toastHelperCallingFunc({
-            type: 'error',
-            text1: 'Invalid Notes',
-            text2: 'Please insert some data',
-        });
-        return
-    }
-
-    else {
-        console.log('else');
-
-        if (noteType == 'text1') {
-            return content.split(" ").slice(0, 5).join(" ")
-        }
-        else if (noteType == 'text2') {
-            return content.split(" ").slice(5, 15).join(" ")
-        }
-    }
-
-}
-
 const NotePad = () => {
 
     const [userName, setUserName] = useState<string | null>("");
@@ -180,22 +157,29 @@ const NotePad = () => {
 
                 <ScrollView className="flex-1 h-[70%] px-8 py-4 ">
                     {
-                        userAllNotes.length == 0 ? <Text className='text-center color-slate-500 italic'>You haven't taken any notes yet 😢😢😢</Text> :
-                            userAllNotes.map((elm) => (
-                                <View className='my-2 p-5 rounded-xl bg-slate-400 w-[90%] mx-auto flex flex-row ' key={elm.notesId}>
-                                    <Pressable className="w-[85%]" onPress={() => addEditNotesModelFunc(elm.notesId)}>
-                                        <View>
-                                            <Text className='font-bold' style={{ fontSize: 15 }}>{notesFormatFunc('text1', elm.noteContent)}</Text>
-                                            <Text className='font-semibold mt-2' style={{ fontSize: 10 }}>{notesFormatFunc('text2', elm.noteContent)}.........</Text>
-                                        </View>
-                                    </Pressable>
-                                    <View className="w-[15%] my-auto">
-                                        <Pressable className=' mx-auto px-5 py-4 bg-red-600 rounded-full' style={{ elevation: 5 }} onPress={() => deleteNotes(elm.notesId)}>
-                                            <FontAwesome name="trash" size={12} color="yellow" />
+                        userAllNotes.map((elm) => {
+                            const formattedText1 = elm.noteContent.split(" ").slice(0, 5).join(" ");
+                            const formattedText2 = elm.noteContent.split(" ").slice(5, 15).join(" ");
+
+                            return (
+                                <TabsContainer key={elm.notesId}>
+                                    <View className='flex flex-row'>
+                                        <Pressable onPress={() => addEditNotesModelFunc(elm.notesId)} style={{ flex: 6 }}>
+                                            <View>
+                                                <Text className='font-bold' style={{ fontSize: 15 }}>{formattedText1}</Text>
+                                                <Text className='font-semibold mt-2' style={{ fontSize: 10 }}>{formattedText2}.........</Text>
+                                            </View>
                                         </Pressable>
+                                        <View className="my-auto" style={{ flex: 1 }}>
+                                            <Pressable className='mx-auto px-5 py-4 bg-red-600 rounded-full' style={{ elevation: 5 }} onPress={() => deleteNotes(elm.notesId)}>
+                                                <FontAwesome name="trash" size={12} color="yellow" />
+                                            </Pressable>
+                                        </View>
                                     </View>
-                                </View>
-                            ))
+                                </TabsContainer>
+                            )
+                        })
+
                     }
                 </ScrollView>
 
@@ -205,9 +189,9 @@ const NotePad = () => {
                     <FontAwesome name="plus" size={20} color="yellow" />
                 </Pressable>
 
-                <Pressable className='px-5 py-4 bg-red-600  absolute bottom-12 left-[5%] rounded-full' style={{ elevation: 5 }} onPress={deleteAllNotes}>
+                {userAllNotes.length > 0 && <Pressable className='px-5 py-4 bg-red-600  absolute bottom-12 left-[5%] rounded-full' style={{ elevation: 5 }} onPress={deleteAllNotes}>
                     <FontAwesome name="trash" size={20} color="yellow" />
-                </Pressable>
+                </Pressable>}
             </ProjectLayout >
 
             <ModelContainer isVisible={showEditModal} title='Edit Note'>
@@ -232,10 +216,10 @@ const NotePad = () => {
                 />
 
                 <View className="w-[90%] mx-auto  mt-5 flex-row justify-around">
-                    <Pressable className="py-2 bg-red-600 w-[48%] rounded-3xl my-auto" onPress={updateAddNotes}>
+                    <Pressable className="py-2 bg-red-600 rounded-3xl my-auto mx-2" onPress={updateAddNotes} style={{ flex: 1 }}>
                         <Text className="text-center text-white" style={commonFontSizeStyles.commonButtonSize}>Save Note</Text>
                     </Pressable>
-                    <Pressable className="py-2 bg-red-600 w-[48%] rounded-3xl my-auto" onPress={() => setShowEditModal(false)}>
+                    <Pressable className="py-2 bg-red-600 rounded-3xl my-auto mx-2" onPress={() => setShowEditModal(false)} style={{ flex: 1 }}>
                         <Text className="text-center text-white" style={commonFontSizeStyles.commonButtonSize}>Close</Text>
                     </Pressable>
                 </View>

@@ -31,7 +31,6 @@ const App = () => {
       // await AsyncStorage.clear();
       // await AsyncStorage.setItem("allTodoList", JSON.stringify(dummyMultipleMonthRecord));
       const userName = await AsyncStorage.getItem("userName");
-      // console.log("AsyncStorage userName:", userName);
       if (userName == null) {
         setInitialRoute("nameInsert");
       } else {
@@ -176,9 +175,3 @@ const App = () => {
 }
 
 export default App
-// {/* <NotePad /> */}
-// {/* <NameInsert /> */}
-// {/* <AddDataForm /> */}
-// {/* <ExpenseList /> */}
-// {/* <AllMonthlyRecordDisplay /> */}
-// <ProfilePage />
