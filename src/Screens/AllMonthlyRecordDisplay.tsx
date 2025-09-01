@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Pressable, ScrollView } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ProjectLayout from "../Component/Layout/ProjectLayout";
-import { FontAwesome5 } from "@expo/vector-icons";
 import { toastHelperCallingFunc } from "../Component/Common/ToastComponent";
 import Component_AllRecordsModel from "./Component_AllRecordsModel";
 import commonFontSizeStyles from "../CSS/commonStyleSheet";
 import TabsContainer from "../Component/Common/TabsContainer";
-import saveAsPdf from "../TS Logic/saveAsPdf";
+import saveAsPdf from "../pdfBuild/saveAsPdf";
+import * as Print from "expo-print";
+import * as Sharing from "expo-sharing";
+import GeneratePdfToHtml from "../pdfBuild/GeneratePdftoHtml";
+import { formatAmount } from "../TS Logic/formatAmount";
 
 const AllMonthlyRecordDisplay = () => {
     const [allData, setAllData] = useState<any>(null);
@@ -15,16 +18,32 @@ const AllMonthlyRecordDisplay = () => {
     const [modelData, setModelData] = useState<any>(null);
 
 
+
+    const downloadPdf = async (modelId: any) => {
+        // Process your data
+        const todoData = allData.find((elm: any) => elm.id == modelId);
+        const pdfData = saveAsPdf(todoData);
+        const html = GeneratePdfToHtml(pdfData);  //generate html     
+        const { uri } = await Print.printToFileAsync({ html });     // Convert HTML → PDF
+
+        console.log("PDF generated at:", uri);
+
+        // Share it (WhatsApp, Gmail, Drive, etc.)
+        if (await Sharing.isAvailableAsync()) {
+            await Sharing.shareAsync(uri);
+        } else {
+            alert("Sharing not available on this device");
+        }
+    };
+
+
     function getModelData(modelId: any) {
         const modelData = allData.find((elm: any) => elm.id == modelId);
         const total = modelData.todos.reduce((sum: number, elm: any) => sum + Number(elm.amount), 0);
         setModelData({ ...modelData, total });
-        setShowModel(true);
-    }
+        console.log(modelData);
 
-    function getDataById(modelId: any) {
-        const todoData = allData.find((elm: any) => elm.id == modelId);
-        saveAsPdf(todoData)
+        setShowModel(true);
     }
 
 
@@ -78,15 +97,19 @@ const AllMonthlyRecordDisplay = () => {
                                     <View className="flex flex-row justify-between">
                                         <View>
                                             <Text className="mb-5" style={commonFontSizeStyles.commonHeaderFontSize}>{elm.title}</Text>
-                                            <Text className="font-extrabold" style={commonFontSizeStyles.commonTextContent}>Monthly Budget : <Text className="text-red-600 font-bold ">₹ 2000 /-</Text> </Text>
-                                            <Text className="font-extrabold" style={commonFontSizeStyles.commonTextContent}>Total Spent :  <Text className="text-red-600 font-bold ">₹ 2000 /-</Text> </Text>
-                                            <Text className="font-extrabold" style={commonFontSizeStyles.commonTextContent}>Remaining Amount :  <Text className="text-red-600 font-bold ">₹ 2000 /-</Text> </Text>
+                                            <Text className="font-extrabold" style={commonFontSizeStyles.commonTextContent}>Monthly Budget : <Text className="text-red-600 font-bold ">₹ {formatAmount(elm.budgetSet)} /-</Text> </Text>
+                                            <Text className="font-extrabold" style={commonFontSizeStyles.commonTextContent}>Total Spent :
+                                                <Text className="text-red-600 font-bold ">
+                                                    ₹ {formatAmount(elm.todos.reduce((result: number, currVal: any) => Number(result) + Number(currVal.amount), 0))} /-
+                                                </Text>
+                                            </Text>
+                                            <Text className="font-extrabold" style={commonFontSizeStyles.commonTextContent}>Remaining Amount :  <Text className="text-red-600 font-bold ">₹ {formatAmount(elm.remainingAmount)} /-</Text> </Text>
                                         </View>
                                         <View className="my-auto">
                                             <Pressable>
                                                 <Text className="color-[#3a86ff] text-center" style={commonFontSizeStyles.commonButtonSize}>View Details</Text>
                                             </Pressable>
-                                            <Pressable className="px-3 py-2 mt-2 bg-green-600 rounded-xl" style={{ elevation: 5 }} onPress={() => getDataById(elm.id)}>
+                                            <Pressable className="px-3 py-2 mt-2 bg-green-600 rounded-xl" style={{ elevation: 5 }} onPress={() => downloadPdf(elm.id)}>
                                                 <Text className="text-white" style={commonFontSizeStyles.commonButtonSize}>Save as PDF</Text>
                                             </Pressable>
                                         </View>

@@ -1,5 +1,5 @@
-import { categoryArray } from "./categoryArray";
-import { getPercentage } from "./chartData";
+import { categoryArray } from "../TS Logic/categoryArray";
+import { getPercentage } from "../TS Logic/chartData";
 
 const saveAsPdf = (modelData: any) => {
     // console.log(modelData);
@@ -25,7 +25,7 @@ const saveAsPdf = (modelData: any) => {
     const pdfGenerateJson = {
         title: modelData.title,
         totalRecordCount: modelData.todos.length,
-        totalBudget: modelData.budgetSet,
+        totalBudget: Number(modelData.budgetSet),
         totalExpenses: modelData.todos.reduce((sum: number, elm: any) => sum + Number(elm.amount), 0),
         remainingAmount: modelData.remainingAmount,
         todos: todoArray

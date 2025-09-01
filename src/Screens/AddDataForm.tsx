@@ -151,12 +151,15 @@ const AddDataForm = () => {
 
     // loading initial data from storage and sabing in todo list
     useEffect(() => {
-        function onFirstDateShowModal() {
+        async function onFirstDateShowModal() {
+            const storedBudget = await AsyncStorage.getItem("budget");
             const today = new Date();
             const date = today.getDate();
 
             if (date == 1) {
-                setShowBudgetModal(true);
+                if (storedBudget == null) {
+                    setShowBudgetModal(true);
+                }
             }
         }
         onFirstDateShowModal();
