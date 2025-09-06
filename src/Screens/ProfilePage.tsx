@@ -6,6 +6,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import getUserData from '../TS Logic/getUserProfileData';
 import { useAppNavigation } from "../TS Logic/routesInterface";
 import { formatAmount } from '../TS Logic/formatAmount';
+import commonFontSizeStyles from "../CSS/commonStyleSheet";
 
 const { width, height } = Dimensions.get("window");
 // 
@@ -42,50 +43,42 @@ const ProfilePage = () => {
         <>
             <ProjectLayout>
 
-                <View className=" mt-5 flex items-center mx-auto h-[30%] relative">
+                <View className=" mt-5 flex items-center mx-auto  relative">
                     <View
                         className="rounded-full overflow-hidden border-green-300 border-4 mb-3 bg-white p-2"
-                        style={{ elevation: 5 }}
-                    >
-                        <Image
-                            source={userDetails.userProfilePic}
+                        style={{ elevation: 5 }}>
+                        <Image source={userDetails.userProfilePic}
                             style={{
                                 width: width * 0.19,  // make sure width === height
                                 height: width * 0.19, // use width for both
                                 borderRadius: (width * 0.19) / 2, // half of width
                                 resizeMode: "cover",  // cover looks more natural than contain
                                 alignSelf: "center",  // replaces mx-auto for RN
-                            }}
-                        />
+                            }} />
                     </View>
 
                     <Text className='text-2xl mt-2 font-extrabold' style={{ letterSpacing: 1 }}>{userDetails.userName}</Text>
+
                     <View className='mt-4'>
-                        <Image
-                            source={userDetails.genderLogo}
+                        <Image source={userDetails.genderLogo}
                             style={{
                                 width: width * 0.1, // add width
                                 height: height * 0.03, // 30% of screen height
                                 resizeMode: "contain",
-                            }}
-                        />
+                            }} />
                     </View>
-
-                    <Pressable style={{
-                        position: "absolute",
-                        bottom: '20%',
-                        right: '-30%',
-                        borderRadius: 30,
-                        elevation: 5 // shadow for Android
-                    }}
-                        className='p-5 bg-red-500'
-                        onPress={() => navigation.navigate("nameInsert")}
-                    >
-                        <FontAwesome name="edit" size={20} color="yellow" />
-                    </Pressable>
                 </View>
 
-                <ScrollView className='h-[60%] px-10 mb-5'>
+                <View className="w-full items-center my-3">
+                    <Pressable className="flex flex-row bg-red-600 w-[80%] py-2 rounded-3xl justify-center my-1" onPress={() => navigation.navigate("nameInsert")}>
+                        <FontAwesome name="edit" size={20} color="white" />
+                        <Text className="ps-3 text-white my-auto" style={commonFontSizeStyles.commonButtonSize}>Edit Personal Details</Text>
+                    </Pressable>
+
+                </View>
+
+
+                <ScrollView className='px-10 mb-5'>
                     <ProfileTabs title='Total Records' count={formatAmount(userDetails.totalRecords)} />
                     <ProfileTabs title='Total Spent Till Date' count={formatAmount(userDetails.totalSpentTillDate)} />
                     <ProfileTabs title='Total Records this Month' count={formatAmount(userDetails.totalRecordsThisMonth)} />

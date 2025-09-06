@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { toastHelperCallingFunc } from '../Component/Common/ToastComponent'
 import { useAppNavigation } from "../TS Logic/routesInterface";
 import commonFontSizeStyles from "../CSS/commonStyleSheet";
+import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 
 const NameInsert = () => {
     const { width, height } = Dimensions.get("window");
@@ -52,12 +53,14 @@ const NameInsert = () => {
     return (
         <SafeAreaView className="flex-1">
             <TopNavbar />
-            <View className="flex-1 items-center justify-center bg-white">
+
+
+            <View className="flex-1 items-center justify-center">
                 <View className="w-[90%]  px-4">
                     {/* Input */}
                     <InputBox
-                        inputBoxLabel="Enter item name"
-                        placeholder="Enter item name"
+                        inputBoxLabel="Enter User Name"
+                        placeholder="Enter User Name"
                         value={userName}
                         onChangeText={setUserName}
                     />
@@ -78,12 +81,17 @@ const NameInsert = () => {
 
 
                     <View className="mt-4">
-                        <Pressable className="py-4 bg-red-600 rounded-3xl" onPress={setStorageDataFunction}>
-                            <Text className="text-center text-white font-bold" style={commonFontSizeStyles.commonButtonSize}>Save Data</Text>
+                        <Pressable className="py-4 bg-red-600 rounded-3xl flex flex-row justify-center" onPress={setStorageDataFunction}>
+                            <FontAwesome name='save' color="white" size={20} />
+                            <Text className="ms-5 my-auto text-white font-bold" style={commonFontSizeStyles.commonButtonSize}>Save Data</Text>
                         </Pressable>
+
+
                     </View>
                 </View>
             </View>
+
+
         </SafeAreaView>
     )
 }

@@ -6,35 +6,48 @@ import { toastHelperCallingFunc } from "../Component/Common/ToastComponent";
 import Component_AllRecordsModel from "./Component_AllRecordsModel";
 import commonFontSizeStyles from "../CSS/commonStyleSheet";
 import TabsContainer from "../Component/Common/TabsContainer";
+import GeneratePdfToHtml from "../pdfBuild/GeneratePdftoHtml";
+import { formatAmount } from "../TS Logic/formatAmount";
 import saveAsPdf from "../pdfBuild/saveAsPdf";
 import * as Print from "expo-print";
 import * as Sharing from "expo-sharing";
-import GeneratePdfToHtml from "../pdfBuild/GeneratePdftoHtml";
-import { formatAmount } from "../TS Logic/formatAmount";
+import { Asset } from "expo-asset";
 
 const AllMonthlyRecordDisplay = () => {
     const [allData, setAllData] = useState<any>(null);
     const [showModel, setShowModel] = useState<boolean>(true);
     const [modelData, setModelData] = useState<any>(null);
-
+    const [userName, setUserName] = useState("");
 
 
     const downloadPdf = async (modelId: any) => {
-        // Process your data
-        const todoData = allData.find((elm: any) => elm.id == modelId);
-        const pdfData = saveAsPdf(todoData);
-        const html = GeneratePdfToHtml(pdfData);  //generate html     
-        const { uri } = await Print.printToFileAsync({ html });     // Convert HTML → PDF
+        try {
+            const userName = await AsyncStorage.getItem("userName");
+            setUserName(userName || "");
+            const todoData = allData.find((elm: any) => elm.id == modelId);
+            const pdfData = saveAsPdf(todoData);
 
-        console.log("PDF generated at:", uri);
+            const logoAsset = Asset.fromModule(require("../../assets/adaptive-icon.png"));
+            await logoAsset.downloadAsync();
+            const logoUri = logoAsset.localUri;
+            console.log(logoUri);
 
-        // Share it (WhatsApp, Gmail, Drive, etc.)
-        if (await Sharing.isAvailableAsync()) {
-            await Sharing.shareAsync(uri);
-        } else {
-            alert("Sharing not available on this device");
+            const html = GeneratePdfToHtml(pdfData, userName);
+
+            const { uri } = await Print.printToFileAsync({ html });
+            console.log("✅ PDF generated at:", uri);
+
+            if (await Sharing.isAvailableAsync()) {
+                await Sharing.shareAsync(uri);
+            } else {
+                alert("Sharing not available on this device");
+            }
+        } catch (err) {
+            console.error("❌ PDF generation failed:", err);
         }
     };
+
+
 
 
     function getModelData(modelId: any) {

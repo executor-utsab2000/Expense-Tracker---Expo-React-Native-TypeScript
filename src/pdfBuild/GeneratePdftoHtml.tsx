@@ -1,20 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { formatAmount } from '../TS Logic/formatAmount'
 import { Asset } from "expo-asset";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 const logo = Asset.fromModule(require("../../assets/adaptive-icon.png")).uri;
 
 
-const GeneratePdftoHtml = (data: any) => {
+const GeneratePdftoHtml = (data: any, userName: any) => {
 
-    const [userName, setUserName] = useState<any>('')
-
-    useEffect(() => {
-        async function getUserName() {
-            const userNameData = await AsyncStorage.getItem("userName");
-            setUserName(userNameData)
-        }
-    }, [])
 
     return `
 
@@ -171,17 +162,17 @@ const GeneratePdftoHtml = (data: any) => {
                     <tr>
                         <th>Total Budget Set</th>
                         <td> : </td>
-                        <td>${formatAmount(data.totalBudget)}</td>
+                        <td>₹ ${formatAmount(data.totalBudget)} /-</td>
                     </tr>
                     <tr>
                         <th>Total Expenses</th>
                         <td> : </td>
-                        <td>${formatAmount(data.totalExpenses)}</td>
+                        <td>₹ ${formatAmount(data.totalExpenses)} /-</td>
                     </tr>
                     <tr>
                         <th>Total Remaining Budget</th>
                         <td> : </td>
-                        <td>${formatAmount(data.remainingAmount)}</td>
+                        <td>₹ ${formatAmount(data.remainingAmount)} /-</td>
                     </tr>
                 </table>
             </div>
@@ -217,8 +208,9 @@ const GeneratePdftoHtml = (data: any) => {
                         <td>-</td>
                     </tr>
                     `
-        })
+        }).join("")
             }
+           
 
 
                     <tr>
@@ -234,8 +226,9 @@ const GeneratePdftoHtml = (data: any) => {
                         <td>-</td>
                     </tr>
                     `
-    })
+    }).join("")
         }
+        
 
                     <tr>
                         <td class="grandTotal">-</td>

@@ -44,6 +44,7 @@ const App = () => {
     async function onFirstTheActions() {
       const today = new Date();
       const date = today.getDate();
+      // const date = 1;
       // // console.log(date);
 
       if (date == 1) {
@@ -103,7 +104,7 @@ const App = () => {
     }
     onFirstTheActions();
 
-    console.log(55);
+    // console.log(55);
 
   }, []);
 
