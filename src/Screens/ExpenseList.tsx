@@ -12,6 +12,7 @@ import InputBox from "../Component/Common/InputBox";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { Dimensions } from "react-native";
 import commonFontSizeStyles from "../CSS/commonStyleSheet";
+import { toastHelperCallingFunc } from "../Component/Common/ToastComponent";
 
 const ExpenseList = () => {
 
@@ -32,6 +33,7 @@ const ExpenseList = () => {
     const [showChart, setShowChart] = useState<boolean>(false)
     const [showCategoryModal, setShowCategoryModal] = useState<boolean>(false);
     const [openEditTodoModal, setOpenEditTodoModal] = useState<boolean>(false)
+
 
     const { width } = Dimensions.get("window");
     const chartSize = width * 0.4;
@@ -94,8 +96,6 @@ const ExpenseList = () => {
 
         const todo = [...todoList]
         const todoEdit = todo.find((elm: any) => elm.id == todoId)
-        // console.log(todoEdit);
-        // setUserTodo(todoEdit)
         setUserExpenseName(todoEdit?.title)
         setUserExpenseAmount(todoEdit?.amount)
         setUserCategory(todoEdit?.category)
@@ -115,12 +115,14 @@ const ExpenseList = () => {
             category: userCategory,
             currentDate: userTodoEdit.currentDate,
             currentTime: userTodoEdit.currentTime,
-            id: userTodoEdit.id,
+            id: userTodoEdit.id
         };
 
-        // remove old entry, add updated one
-        const arrayWithoutEditElm = parsedTodo.filter((elm) => elm.id != userTodoEdit.id);
-        const updatedTodoList = [updatedTodo, ...arrayWithoutEditElm].sort((a, b) => Number(a.id) - Number(b.id));
+        //Keeps the original order of your todos.
+        // Only updates the fields you want(title, amount, category) for the matching todo.
+        // No need to filter or sort; simpler and safer
+        const updatedTodoList = parsedTodo.map((elm) => elm.id === userTodoEdit.id ? { ...elm, title: userExpenseName, amount: userExpenseAmount, category: userCategory } : elm);
+
 
         // budget validation
         const totalSpent = updatedTodoList.reduce((result, currVal) => result + Number(currVal.amount), 0);
@@ -142,6 +144,13 @@ const ExpenseList = () => {
         setUserCategory(null);
         setUserTodoEdit(null);
         setErrorMsg('');
+
+        // show message 
+        toastHelperCallingFunc({
+            type: 'success',
+            text1: 'Success',
+            text2: 'Data Updated Successfully',
+        })
     }
 
 
@@ -207,11 +216,6 @@ const ExpenseList = () => {
 
 
     }, []);
-
-    // useEffect(() => {
-    //     console.log(categoryMode);
-
-    // }, [setCategoryMode, categoryMode])
 
     return (
         <>

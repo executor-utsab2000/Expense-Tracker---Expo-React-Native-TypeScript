@@ -163,12 +163,19 @@ const NotePad = () => {
 
                             return (
                                 <TabsContainer key={elm.notesId}>
-                                    <View className='flex flex-row'>
+                                    <View className='flex flex-row'
+                                        style={{
+                                            overflow: 'hidden',
+                                            minHeight: 60, // You can increase this as needed
+                                            maxHeight: 60, // You can increase this as needed
+                                        }}>
+
                                         <Pressable onPress={() => addEditNotesModelFunc(elm.notesId)} style={{ flex: 6 }}>
                                             <View>
                                                 <Text className='font-bold' style={{ fontSize: 15 }}>{formattedText1}</Text>
                                                 <Text className='font-semibold mt-2' style={{ fontSize: 10 }}>{formattedText2}.........</Text>
                                             </View>
+
                                         </Pressable>
                                         <View className="my-auto" style={{ flex: 1 }}>
                                             <Pressable className='mx-auto px-5 py-4 bg-red-600 rounded-full' style={{ elevation: 5 }} onPress={() => deleteNotes(elm.notesId)}>

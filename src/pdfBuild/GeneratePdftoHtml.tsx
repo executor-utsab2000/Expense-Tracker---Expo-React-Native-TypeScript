@@ -6,6 +6,39 @@ const logo = Asset.fromModule(require("../../assets/adaptive-icon.png")).uri;
 
 const GeneratePdftoHtml = (data: any, userName: any) => {
 
+    function formatDateTime(date: Date = new Date()) {
+        const day = date.getDate();
+        const month = date.toLocaleString("default", { month: "long" }); // September
+        const year = date.getFullYear();
+
+        // Add ordinal suffix
+        const getOrdinal = (n: number) => {
+            if (n > 3 && n < 21) return "th";
+            switch (n % 10) {
+                case 1:
+                    return "st";
+                case 2:
+                    return "nd";
+                case 3:
+                    return "rd";
+                default:
+                    return "th";
+            }
+        };
+
+        // Get time in 12-hour format
+        let hours = date.getHours();
+        const minutes = date.getMinutes().toString().padStart(2, "0");
+        const ampm = hours >= 12 ? "PM" : "AM";
+        hours = hours % 12 || 12;
+
+        return `${day}${getOrdinal(day)} ${month} ${year} at ${hours}:${minutes} ${ampm}`;
+    }
+
+    // Usage
+    console.log(formatDateTime());
+    // Automatically uses current date & time
+
 
     return `
 
@@ -245,7 +278,7 @@ const GeneratePdftoHtml = (data: any, userName: any) => {
         </div>
 
     </div>
-    <div class="footer">Generated on ${new Date().toLocaleDateString()}</div>
+    <div class="footer">Generated on ${formatDateTime()}</div>
 </body>
 
 </html>
